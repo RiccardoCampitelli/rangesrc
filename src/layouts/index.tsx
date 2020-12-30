@@ -27,6 +27,7 @@ const IndexLayout: React.FC = ({ children }) => (
           siteMetadata {
             title
             description
+            keywords
           }
         }
       }
@@ -36,7 +37,10 @@ const IndexLayout: React.FC = ({ children }) => (
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
-            { name: 'description', content: data.site.siteMetadata.description },
+            {
+              name: 'description',
+              content: data.site.siteMetadata.description
+            },
             { name: 'keywords', content: data.site.siteMetadata.keywords }
           ]}
         />
