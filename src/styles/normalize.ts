@@ -1,7 +1,8 @@
+import { createGlobalStyle } from 'styled-components'
 import { dimensions, fonts, colors, breakpoints } from './variables'
 import { getEmSize } from './mixins'
 
-export default `
+const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
   }
@@ -158,3 +159,5 @@ export default `
     }
   }
 `
+
+export default GlobalStyle

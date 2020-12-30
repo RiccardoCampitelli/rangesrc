@@ -6,7 +6,7 @@ import Img from 'gatsby-image'
 import Page from '../components/Page'
 import Container from '../components/Container'
 import IndexLayout from '../layouts'
-import styled from '@emotion/styled'
+// import styled from '@emotion/styled'
 
 const query = graphql`
   query {
@@ -20,17 +20,17 @@ const query = graphql`
   }
 `
 
-const FancyDiv = styled.h1`
-  height: 10rem;
-  width: 4rem;
-  position: sticky;
-  top: 0px;
-  z-index: 111;
-  text-align: center;
-  width: 100%;
-  color: white;
-  margin-top: 10rem;
-`
+// const FancyDiv = styled.h1`
+//   height: 10rem;
+//   width: 4rem;
+//   position: sticky;
+//   top: 0px;
+//   z-index: 111;
+//   text-align: center;
+//   width: 100%;
+//   color: white;
+//   margin-top: 10rem;
+// `
 
 // try multiple with z index and color
 
@@ -45,7 +45,7 @@ const IndexPage = () => {
     <IndexLayout>
       <Page>
         <Container>
-          <FancyDiv>RANGES RC</FancyDiv>
+          {/* <FancyDiv>RANGES RC</FancyDiv> */}
           <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
           <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
           <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
