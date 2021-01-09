@@ -23,6 +23,7 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
     // cursive: string
     // monospace: string
   }
+  fontWeights: Record<string, number>
   buttonRadius: string
   lineHeights: Record<LineHeight, string | number>
   letterSpacings: Record<LetterSpacing, string | number>
@@ -37,7 +38,7 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
 
 const baseTheme = {
   colors: {
-    primary: '#47ae75',
+    primary: '#e7edf1',
     secondary: '#fa8f4d',
     positive: '#50b87e',
     negative: '#cc3333',
@@ -86,6 +87,11 @@ const theme: Partial<AppTheme> = {
     tight: '-0.05em',
     mega: '0.25em'
   },
+  fontWeights: {
+    light: 300,
+    normal: 400,
+    bold: 700
+  },
   breakpoints: breakpoints,
   buttonRadius: '5px'
 }
@@ -99,6 +105,10 @@ export const getColor = (color: keyof AppTheme['colors']) => (
 export const getFont = (font: keyof AppTheme['fonts']) => (
   p: ThemedStyledProps<unknown, DefaultTheme>
 ) => p.theme.fonts[font]
+
+export const getFontWeight = (fontWeight: keyof AppTheme['fontWeights']) => (
+  p: ThemedStyledProps<unknown, DefaultTheme>
+) => p.theme.fontWeights[fontWeight]
 
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

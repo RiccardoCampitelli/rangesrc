@@ -51,6 +51,12 @@ module.exports = {
         ]
       }
     },
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/styles/typography`
+      }
+    },
     'gatsby-transformer-json',
     {
       resolve: 'gatsby-plugin-canonical-urls',

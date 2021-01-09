@@ -1,7 +1,10 @@
 import * as React from 'react'
+import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby'
 import styled from 'styled-components'
+import { space, SpaceProps } from 'styled-system'
 
 import { heights, dimensions, colors } from '../styles/variables'
+import { AppTheme, getColor, getFontWeight } from '../styles/theme'
 
 const StyledHeader = styled.header`
   height: ${heights.header}px;
@@ -35,29 +38,25 @@ const Svg = styled.svg`
   height: 6rem;
 `
 
+const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
+  SpaceProps<AppTheme>> = styled(GatsbyLink)`
+  color: ${getColor('primary')};
+  font-weight: ${getFontWeight('bold')};
+  text-decoration: none;
+  ${space}
+`
+
 interface HeaderProps {
   title: string
 }
-
 const Header: React.FC<HeaderProps> = () => (
-  <>
-    {/* <Triangle>
-      <Svg
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M1200 0L0 0 598.97 114.72 1200 0z"
-          className="shape-fill"
-        ></path>
-      </Svg>
-    </Triangle> */}
-    <StyledHeader>
-      <Title>RANGESRC</Title>
-    </StyledHeader>
-  </>
+  <StyledHeader>
+    <Link to="/">Home</Link>
+    <Link mx={2} to="/shop">
+      Shop
+    </Link>
+    <Link to="/about">About</Link>
+  </StyledHeader>
 )
 
 export default Header
