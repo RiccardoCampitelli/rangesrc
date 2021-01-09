@@ -19,9 +19,9 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
     neutralLightest: string
   }
   fonts: {
-    normal: string
-    cursive: string
-    monospace: string
+    // normal: string
+    // cursive: string
+    // monospace: string
   }
   buttonRadius: string
   lineHeights: Record<LineHeight, string | number>
@@ -49,11 +49,7 @@ const baseTheme = {
     neutralLight: '#eaeded',
     neutralLightest: '#fff'
   },
-  fonts: {
-    normal: 'Raleway',
-    cursive: 'Pacifico',
-    monospace: 'monospace'
-  }
+  fonts: {}
 }
 
 const breakpoints: any = ['420px', '768px', '992px', '1200px']

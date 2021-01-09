@@ -2,11 +2,10 @@
 
 module.exports = {
   siteMetadata: {
-    title: 'gatsby-starter-typescript-plus',
-    description:
-      'A starter kit for TypeScript-based Gatsby projects with sensible defaults.',
+    title: 'Ranges RC',
+    description: 'Ranges RC ecommerce website',
     keywords: 'gatsbyjs, gatsby, javascript, sample, something',
-    siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
+    siteUrl: 'https://www.google.com/',
     author: {
       name: 'Riccardo Campitelli',
       url: '',
@@ -56,7 +55,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com'
+        siteUrl: 'https://www.google.com/'
       }
     },
     `gatsby-plugin-styled-components`,

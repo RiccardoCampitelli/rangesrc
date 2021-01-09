@@ -1,15 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { transparentize } from 'polished'
-import { Link } from 'gatsby'
 
 import { heights, dimensions, colors } from '../styles/variables'
-import Container from './Container'
 
 const StyledHeader = styled.header`
   height: ${heights.header}px;
   padding: 0 ${dimensions.containerPadding}rem;
-  background-color: ${colors.black};
+  background-color: transparent;
   color: ${colors.white};
   position: fixed;
   z-index: 101;
@@ -42,9 +39,9 @@ interface HeaderProps {
   title: string
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => (
+const Header: React.FC<HeaderProps> = () => (
   <>
-    <Triangle>
+    {/* <Triangle>
       <Svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +53,10 @@ const Header: React.FC<HeaderProps> = ({ title }) => (
           className="shape-fill"
         ></path>
       </Svg>
-    </Triangle>
-    <StyledHeader>{/* <Title>RANGESRC</Title> */}</StyledHeader>
+    </Triangle> */}
+    <StyledHeader>
+      <Title>RANGESRC</Title>
+    </StyledHeader>
   </>
 )
 

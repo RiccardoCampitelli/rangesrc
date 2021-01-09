@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 
 import Img from 'gatsby-image'
 
 import Page from '../components/Page'
 import Container from '../components/Container'
 import IndexLayout from '../layouts'
-// import styled from '@emotion/styled'
 
 const query = graphql`
   query {
@@ -17,38 +16,35 @@ const query = graphql`
         }
       }
     }
+    waves: file(relativePath: { eq: "waves.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 1000) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
   }
 `
-
-// const FancyDiv = styled.h1`
-//   height: 10rem;
-//   width: 4rem;
-//   position: sticky;
-//   top: 0px;
-//   z-index: 111;
-//   text-align: center;
-//   width: 100%;
-//   color: white;
-//   margin-top: 10rem;
-// `
-
-// try multiple with z index and color
-
-{
-  /* <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} /> */
-}
-
 const IndexPage = () => {
-  const imageQuery = useStaticQuery(query)
+  const { rangesrc, waves } = useStaticQuery(query)
 
   return (
     <IndexLayout>
+      <Img
+        imgStyle={{ position: 'fixed' }}
+        fluid={waves.childImageSharp.fluid}
+      />
       <Page>
         <Container>
-          {/* <FancyDiv>RANGES RC</FancyDiv> */}
-          <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
-          <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
-          <Img fluid={imageQuery.rangesrc.childImageSharp.fluid} />
+          <Img fluid={rangesrc.childImageSharp.fluid} />
+          <Img
+            fadeIn={true}
+            durationFadeIn={1000}
+            fluid={rangesrc.childImageSharp.fluid}
+          />
+          <Link to="/">Take me back home.</Link>
+          <Link to="/shop">Let me buy some merch!</Link>
+          <Link to="/page-2">page two!</Link>
         </Container>
       </Page>
     </IndexLayout>
