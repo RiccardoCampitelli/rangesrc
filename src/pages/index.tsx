@@ -1,15 +1,14 @@
-import React, { HTMLProps, useRef, useState } from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
+import React, { HTMLProps } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 
 import Img from 'gatsby-image'
 
-import Page from '../components/Page'
-import Container from '../components/Container'
-import IndexLayout from '../layouts'
+import IndexLayout from 'src/layouts'
 import styled, { keyframes, useTheme } from 'styled-components'
 import { AppTheme, getColor } from 'src/styles/theme'
 import { typography, TypographyProps } from 'styled-system'
 import Landing from 'src/components/Landing'
+import Container from '../components/Container'
 
 const query = graphql`
   query {
