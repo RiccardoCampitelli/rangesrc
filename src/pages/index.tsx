@@ -1,17 +1,17 @@
 import React, { HTMLProps, useRef, useState } from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
-
+import { graphql, useStaticQuery } from 'gatsby'
+import { flexbox, FlexboxProps } from 'styled-system'
 import Img from 'gatsby-image'
 
-import Page from '../components/Page'
-import Container from '../components/Container'
-import IndexLayout from '../layouts'
+import { useEventListener } from 'src/hooks/useEventListener'
 import styled, { keyframes, useTheme } from 'styled-components'
 import Landing from 'src/components/Landing'
 import { AppTheme, getColor } from 'src/styles/theme'
 import { typography, TypographyProps } from 'styled-system'
 import { heights } from 'src/styles/variables'
-import { useEventListener } from 'src/hooks/useEventListener'
+import Page from '../components/Page'
+import Container from '../components/Container'
+import IndexLayout from '../layouts'
 
 const query = graphql`
   query {
@@ -60,13 +60,22 @@ const Title: React.FC<H1Props> = styled.h1<CustomProps>`
   ${typography};
 `
 
+type DivProps = HTMLProps<HTMLDivElement> & FlexboxProps
+
+const Wrapper: React.FC<DivProps> = styled.div`
+  overflow-x: hidden;
+  height: 40rem;
+  display: flex;
+  ${flexbox};
+`
+
 const RangesRC = () => {
   const { fontSizes } = useTheme()
   const titleRef = useRef<HTMLElement | null>(null)
   const [isAtTop, setIsAtTop] = useState(false)
 
   const eventHandler = () => {
-    const pageYOffset = window.pageYOffset
+    const { pageYOffset } = window
 
     const titleOffset = titleRef.current?.offsetTop ?? 0
 
@@ -94,9 +103,14 @@ const RangesRC = () => {
   )
 }
 
+const ModifiedImg = styled(Img)`
+  height: 20%;
+  width: 20%;
+`
+
 const IndexPage = () => {
   const { liveToBurn } = useStaticQuery(query)
-
+  const { rowOrColumn } = useTheme()
   return (
     <>
       <IndexLayout>
@@ -105,7 +119,16 @@ const IndexPage = () => {
             <RangesRC />
           </Landing>
           <Container>
-            <Img fluid={liveToBurn.childImageSharp.fluid} />
+            <Wrapper
+              flexWrap="wrap"
+              flexDirection={[rowOrColumn[0], rowOrColumn[1]]}
+            >
+              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
+              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
+              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
+              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
+              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
+            </Wrapper>
           </Container>
         </Page>
       </IndexLayout>

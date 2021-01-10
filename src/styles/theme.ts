@@ -27,6 +27,7 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
   fontWeights: Record<string, number>
   // fontSizes: Record<FontSize, number>
   fontSizes: number[]
+  rowOrColumn: string[]
   buttonRadius: string
   lineHeights: Record<LineHeight, string | number>
   letterSpacings: Record<LetterSpacing, string | number>
@@ -90,11 +91,13 @@ const theme: Partial<AppTheme> = {
     tight: '-0.05em',
     mega: '0.25em'
   },
+
   fontWeights: {
     light: 300,
     normal: 400,
     bold: 700
   },
+  rowOrColumn: ['column', 'row'],
   fontSizes: [1, 2, 4],
   // fontSizes: {
   //   normal: 1,
