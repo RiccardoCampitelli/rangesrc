@@ -1,4 +1,4 @@
-import React, { HTMLProps } from 'react'
+import React, { HTMLProps, useRef, useState } from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 
 import Img from 'gatsby-image'
@@ -8,13 +8,14 @@ import Container from '../components/Container'
 import IndexLayout from '../layouts'
 import styled, { keyframes, useTheme } from 'styled-components'
 import Landing from 'src/components/Landing'
-import { AppTheme } from 'src/styles/theme'
+import { AppTheme, getColor } from 'src/styles/theme'
 import { typography, TypographyProps } from 'styled-system'
 import { heights } from 'src/styles/variables'
+import { useEventListener } from 'src/hooks/useEventListener'
 
 const query = graphql`
   query {
-    rangesrc: file(relativePath: { eq: "rangesrc.jpg" }) {
+    liveToBurn: file(relativePath: { eq: "livetoburn.jpg" }) {
       childImageSharp {
         fluid(maxWidth: 1000) {
           ...GatsbyImageSharpFluid
@@ -42,57 +43,69 @@ const enterAnimation = keyframes`
   }
 }
 `
+type CustomProps = { isFixed: boolean }
 
-// interface Test {
-//   a: string
-//   b: number
-// }
+type H1Props = HTMLProps<HTMLHeadElement> &
+  TypographyProps<AppTheme> &
+  CustomProps
 
-// interface OmittedTest extends Omit<Test, 'a'> {}
-
-// interface H1KnownProps extends React.RefAttributes<any> {}
-
-// export interface H1Props
-//   extends React.RefAttributes<any>,
-//     Omit<React.HTMLProps<HTMLHeadElement>, keyof React.RefAttributes<any>> {}
-
-type H1Props = HTMLProps<HTMLHeadElement> & TypographyProps<AppTheme>
-
-const RangesRC: React.FC<H1Props> = styled.h1`
-  position: sticky;
-  top: ${heights.header}px;
+const Title: React.FC<H1Props> = styled.h1<CustomProps>`
+  position: ${props => props.isFixed && 'fixed'};
+  /* top: ${heights.header}px; */
   /* z-index: 101; */
-
+  top: 0;
+  color: ${getColor('primary')};
   /* animation: ${enterAnimation} 2.5s ease-in; */
   z-index: 200;
   ${typography};
 `
 
-const IndexPage = () => {
-  const { rangesrc } = useStaticQuery(query)
+const RangesRC = () => {
   const { fontSizes } = useTheme()
+  const titleRef = useRef<HTMLElement | null>(null)
+  const [isAtTop, setIsAtTop] = useState(false)
+
+  const eventHandler = () => {
+    const pageYOffset = window.pageYOffset
+
+    const titleOffset = titleRef.current?.offsetTop ?? 0
+
+    if (pageYOffset >= titleOffset) {
+      setIsAtTop(true)
+    }
+
+    if (pageYOffset < titleOffset) {
+      setIsAtTop(false)
+    }
+  }
+
+  useEventListener('scroll', eventHandler)
 
   const fontSizesInPx = fontSizes.map(remSize => remSize * 16)
+
+  return (
+    <Title
+      ref={titleRef}
+      isFixed={isAtTop}
+      fontSize={[fontSizesInPx[1], fontSizesInPx[2]]}
+    >
+      RANGES RC
+    </Title>
+  )
+}
+
+const IndexPage = () => {
+  const { liveToBurn } = useStaticQuery(query)
 
   return (
     <>
       <IndexLayout>
         <Page>
           <Landing>
-            <RangesRC fontSize={[fontSizesInPx[1], fontSizesInPx[2]]}>
-              RANGES RC
-            </RangesRC>
+            <RangesRC />
           </Landing>
           <Container>
-            <Img fluid={rangesrc.childImageSharp.fluid} />
-            <Img
-              fadeIn={true}
-              durationFadeIn={1000}
-              fluid={rangesrc.childImageSharp.fluid}
-            />
-            <Link to="/">Take me back home.</Link>
-            <Link to="/shop">Let me buy some merch!</Link>
-            <Link to="/page-2">page two!</Link>
+            <Img fluid={liveToBurn.childImageSharp.fluid} />
           </Container>
         </Page>
       </IndexLayout>
