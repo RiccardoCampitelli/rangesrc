@@ -7,6 +7,9 @@ import { heights, dimensions, colors } from '../styles/variables'
 import { AppTheme, getColor, getFontWeight } from '../styles/theme'
 
 const StyledHeader = styled.header`
+  display: flex;
+  align-items: center;
+
   height: ${heights.header}px;
   padding: 0 ${dimensions.containerPadding}rem;
   background-color: transparent;
@@ -16,27 +19,27 @@ const StyledHeader = styled.header`
   width: 100%;
 `
 
-const Title = styled.h1`
-  color: ${colors.white};
-  text-align: center;
-`
+// const Title = styled.h1`
+//   color: ${colors.white};
+//   text-align: center;
+// `
 
-const Triangle = styled.div`
-  position: absolute;
-  top: ${heights.header}px;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  z-index: 101;
-`
+// const Triangle = styled.div`
+// position: absolute;
+// top: ${heights.header}px;
+//   left: 0;
+//   width: 100%;
+//   overflow: hidden;
+//   line-height: 0;
+//   z-index: 101;
+// `
 
-const Svg = styled.svg`
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 6rem;
-`
+// const Svg = styled.svg`
+//   position: relative;
+//   display: block;
+//   width: calc(100% + 1.3px);
+//   height: 6rem;
+// `
 
 const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
   SpaceProps<AppTheme>> = styled(GatsbyLink)`
@@ -49,6 +52,7 @@ const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
 interface HeaderProps {
   title: string
 }
+
 const Header: React.FC<HeaderProps> = () => (
   <StyledHeader>
     <Link to="/">Home</Link>

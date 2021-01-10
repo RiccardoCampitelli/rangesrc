@@ -1,6 +1,12 @@
 import Typography from 'typography'
-import funstonTheme from 'typography-theme-lawton'
+import lawton from 'typography-theme-lawton'
 
-const typography = new Typography(funstonTheme)
+// lawton.overrideThemeStyles = ({ adjustFontSizeTo }, options) => ({
+//   h1: {
+//     fontSize: 1400
+//   }
+// })
+
+const typography = new Typography(lawton)
 
 export default typography
