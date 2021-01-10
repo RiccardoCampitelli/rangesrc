@@ -16,12 +16,12 @@ const query = graphql`
 `
 
 const BackgroundImage = styled(GatsbyBackgroundImage)`
-  display: flex;
-  justify-content: center;
-  /* display:  */
-  padding-top: 10rem;
-  height: 100vh;
-  width: 100%;
+  display: block;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 3rem;
+  padding-top: 5rem;
 `
 
 const Landing: React.FC = ({ children }) => {
