@@ -17,6 +17,7 @@ const query = graphql`
 
 const BackgroundImage = styled(GatsbyBackgroundImage)`
   display: flex;
+  /* flex-direction: row; */
   justify-content: center;
   /* display:  */
   padding-top: 10rem;

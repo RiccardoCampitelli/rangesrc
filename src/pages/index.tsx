@@ -50,6 +50,7 @@ const enterAnimation = keyframes`
   }
 }
 `
+
 type CustomProps = { isFixed: boolean }
 
 type H1Props = HTMLProps<HTMLHeadElement> &
@@ -67,7 +68,7 @@ const Title: React.FC<H1Props> = styled.h1<CustomProps>`
   ${typography};
 `
 
-type DivProps = HTMLProps<HTMLDivElement> & FlexboxProps
+type DivProps = HTMLProps<HTMLDivElement> & FlexboxProps & LayoutProps
 
 const RangesRC = () => {
   const { fontSizes } = useTheme()
@@ -108,6 +109,7 @@ const ContentWrapper: React.FC<DivProps> = styled.div`
   min-height: 40rem;
   display: flex;
   ${flexbox};
+  ${space}
 `
 
 type ModifiedImgProps = HTMLProps<HTMLImageElement> & SpaceProps & LayoutProps
@@ -119,6 +121,15 @@ const ModifiedImg = styled(Img)`
   ${layout}
 `
 
+const LearnMore = () => {
+  return (
+    <ContentWrapper m="2rem" justifyContent="flex-end" flexDirection="column">
+      <h2>LEARN MORE</h2>
+      <button>down</button>
+    </ContentWrapper>
+  )
+}
+
 const IndexPage = () => {
   const { liveToBurn } = useStaticQuery(query)
   const { rowOrColumn } = useTheme()
@@ -128,6 +139,7 @@ const IndexPage = () => {
         <Page>
           <Landing>
             <RangesRC />
+            <LearnMore />
           </Landing>
           <Container>
             <ContentWrapper
@@ -137,7 +149,7 @@ const IndexPage = () => {
               justifyConten="center"
             >
               <ModifiedImg
-                size={150} //this is in pixel
+                size={400} //this is in pixel
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
@@ -152,7 +164,7 @@ const IndexPage = () => {
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={150} //this is in pixel
+                size={400} //this is in pixel
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
