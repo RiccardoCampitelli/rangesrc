@@ -16,6 +16,7 @@ declare module '*.module.css' {
 
 declare module 'typography-theme-lawton' {
   import { TypographyOptions } from 'typography'
+
   const Theme: TypographyOptions
 
   export = Theme

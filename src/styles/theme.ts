@@ -3,7 +3,6 @@ import { ThemedStyledProps, DefaultTheme } from 'styled-components'
 
 type LineHeight = 'solid' | 'title' | 'copy'
 type LetterSpacing = 'normal' | 'tracked' | 'tight' | 'mega'
-type FontSize = 'normal' | 'big' | 'huge'
 
 export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
   colors: {
@@ -104,7 +103,7 @@ const theme: Partial<AppTheme> = {
   //   big: 2,
   //   huge: 4
   // },
-  breakpoints: breakpoints,
+  breakpoints,
   buttonRadius: '5px'
 }
 

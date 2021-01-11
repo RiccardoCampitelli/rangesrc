@@ -1,24 +1,23 @@
-import React, { HTMLProps, useRef, useState } from 'react'
+import React, { HTMLProps } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
+
+import Img, { GatsbyImageFluidProps } from 'gatsby-image'
+
+import IndexLayout from 'src/layouts'
+import styled, { keyframes, useTheme } from 'styled-components'
+import { AppTheme, getColor } from 'src/styles/theme'
 import {
   flexbox,
   FlexboxProps,
   layout,
   LayoutProps,
   space,
-  SpaceProps
+  SpaceProps,
+  typography,
+  TypographyProps
 } from 'styled-system'
-import Img from 'gatsby-image'
-
-import { useEventListener } from 'src/hooks/useEventListener'
-import styled, { keyframes, useTheme } from 'styled-components'
 import Landing from 'src/components/Landing'
-import { AppTheme, getColor } from 'src/styles/theme'
-import { typography, TypographyProps } from 'styled-system'
-import { heights } from 'src/styles/variables'
-import Page from '../components/Page'
 import Container from '../components/Container'
-import IndexLayout from '../layouts'
 
 const query = graphql`
   query {
@@ -51,70 +50,46 @@ const enterAnimation = keyframes`
 }
 `
 
-type CustomProps = { isFixed: boolean }
+type H1Props = HTMLProps<HTMLHeadElement> & TypographyProps<AppTheme>
 
-type H1Props = HTMLProps<HTMLHeadElement> &
-  TypographyProps<AppTheme> &
-  CustomProps
-
-const Title: React.FC<H1Props> = styled.h1<CustomProps>`
-  position: ${props => props.isFixed && 'fixed'};
-  /* top: ${heights.header}px; */
-  /* z-index: 101; */
+const Title: React.FC<H1Props> = styled.h1`
+  position: sticky;
   top: 0;
+  text-align: center;
   color: ${getColor('primary')};
-  /* animation: ${enterAnimation} 2.5s ease-in; */
   z-index: 200;
   ${typography};
 `
 
-type DivProps = HTMLProps<HTMLDivElement> & FlexboxProps & LayoutProps
-
 const RangesRC = () => {
   const { fontSizes } = useTheme()
-  const titleRef = useRef<HTMLElement | null>(null)
-  const [isAtTop, setIsAtTop] = useState(false)
-
-  const eventHandler = () => {
-    const { pageYOffset } = window
-
-    const titleOffset = titleRef.current?.offsetTop ?? 0
-
-    if (pageYOffset >= titleOffset) {
-      setIsAtTop(true)
-    }
-
-    if (pageYOffset < titleOffset) {
-      setIsAtTop(false)
-    }
-  }
-
-  useEventListener('scroll', eventHandler)
 
   const fontSizesInPx = fontSizes.map(remSize => remSize * 16)
 
   return (
-    <Title
-      ref={titleRef}
-      isFixed={isAtTop}
-      fontSize={[fontSizesInPx[1], fontSizesInPx[2]]}
-    >
-      RANGES RC
-    </Title>
+    <Title fontSize={[fontSizesInPx[1], fontSizesInPx[2]]}>RANGES RC</Title>
   )
 }
 
+type DivProps = HTMLProps<HTMLDivElement> &
+  FlexboxProps<AppTheme> &
+  SpaceProps<AppTheme>
 const ContentWrapper: React.FC<DivProps> = styled.div`
   height: auto;
   min-height: 40rem;
   display: flex;
   ${flexbox};
-  ${space}
+  ${space};
 `
 
-type ModifiedImgProps = HTMLProps<HTMLImageElement> & SpaceProps & LayoutProps
+type ModifiedImgProps = GatsbyImageFluidProps &
+  SpaceProps<AppTheme> &
+  LayoutProps<AppTheme>
 
-const ModifiedImg = styled(Img)`
+const ModifiedImg: React.FC<Omit<
+  ModifiedImgProps,
+  'propTypes' | 'ref'
+>> = styled(Img)`
   height: 20%;
   width: 20%;
   ${space};
@@ -132,21 +107,20 @@ const LearnMore = () => {
 
 const IndexPage = () => {
   const { liveToBurn } = useStaticQuery(query)
-  const { rowOrColumn } = useTheme()
+
   return (
     <>
       <IndexLayout>
-        <Page>
-          <Landing>
-            <RangesRC />
-            <LearnMore />
-          </Landing>
+        <Landing>
+          <RangesRC />
+          <LearnMore />
+          {/* <Landing></Landing> */}
           <Container>
             <ContentWrapper
               flexWrap="wrap"
-              flexDirection={[rowOrColumn[0], rowOrColumn[1]]}
+              flexDirection={['row', 'column']}
               alignItems="center"
-              justifyConten="center"
+              justifyContent="center"
             >
               <ModifiedImg
                 size={400} //this is in pixel
@@ -180,7 +154,7 @@ const IndexPage = () => {
               />
             </ContentWrapper>
           </Container>
-        </Page>
+        </Landing>
       </IndexLayout>
     </>
   )
