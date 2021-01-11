@@ -1,6 +1,13 @@
 import React, { HTMLProps, useRef, useState } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { flexbox, FlexboxProps } from 'styled-system'
+import {
+  flexbox,
+  FlexboxProps,
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps
+} from 'styled-system'
 import Img from 'gatsby-image'
 
 import { useEventListener } from 'src/hooks/useEventListener'
@@ -62,13 +69,6 @@ const Title: React.FC<H1Props> = styled.h1<CustomProps>`
 
 type DivProps = HTMLProps<HTMLDivElement> & FlexboxProps
 
-const Wrapper: React.FC<DivProps> = styled.div`
-  overflow-x: hidden;
-  height: 40rem;
-  display: flex;
-  ${flexbox};
-`
-
 const RangesRC = () => {
   const { fontSizes } = useTheme()
   const titleRef = useRef<HTMLElement | null>(null)
@@ -103,9 +103,20 @@ const RangesRC = () => {
   )
 }
 
+const ContentWrapper: React.FC<DivProps> = styled.div`
+  height: auto;
+  min-height: 40rem;
+  display: flex;
+  ${flexbox};
+`
+
+type ModifiedImgProps = HTMLProps<HTMLImageElement> & SpaceProps & LayoutProps
+
 const ModifiedImg = styled(Img)`
   height: 20%;
   width: 20%;
+  ${space};
+  ${layout}
 `
 
 const IndexPage = () => {
@@ -119,16 +130,43 @@ const IndexPage = () => {
             <RangesRC />
           </Landing>
           <Container>
-            <Wrapper
+            <ContentWrapper
               flexWrap="wrap"
               flexDirection={[rowOrColumn[0], rowOrColumn[1]]}
+              alignItems="center"
+              justifyConten="center"
             >
-              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
-              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
-              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
-              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
-              <ModifiedImg fluid={liveToBurn.childImageSharp.fluid} />
-            </Wrapper>
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+              <ModifiedImg
+                size={150} //this is in pixel
+                m="1rem"
+                fluid={liveToBurn.childImageSharp.fluid}
+              />
+            </ContentWrapper>
           </Container>
         </Page>
       </IndexLayout>
