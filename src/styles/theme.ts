@@ -24,7 +24,6 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
     // monospace: string
   }
   fontWeights: Record<string, number>
-  // fontSizes: Record<FontSize, number>
   fontSizes: number[]
   rowOrColumn: string[]
   buttonRadius: string
@@ -97,12 +96,7 @@ const theme: Partial<AppTheme> = {
     bold: 700
   },
   rowOrColumn: ['column', 'row'],
-  fontSizes: [1, 2, 4],
-  // fontSizes: {
-  //   normal: 1,
-  //   big: 2,
-  //   huge: 4
-  // },
+  fontSizes: [16, 32, 64, 80],
   breakpoints,
   buttonRadius: '5px'
 }

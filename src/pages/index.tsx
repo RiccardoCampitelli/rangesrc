@@ -17,6 +17,7 @@ import {
   TypographyProps
 } from 'styled-system'
 import Landing from 'src/components/Landing'
+import Page from 'src/components/Page'
 import Container from '../components/Container'
 
 const query = graphql`
@@ -55,21 +56,14 @@ type H1Props = HTMLProps<HTMLHeadElement> & TypographyProps<AppTheme>
 const Title: React.FC<H1Props> = styled.h1`
   position: sticky;
   top: 0;
+  margin-top: -70vh;
+  margin-bottom: 70vh;
   text-align: center;
   color: ${getColor('primary')};
   z-index: 200;
   ${typography};
+  animation: ${enterAnimation} 1s ease-in;
 `
-
-const RangesRC = () => {
-  const { fontSizes } = useTheme()
-
-  const fontSizesInPx = fontSizes.map(remSize => remSize * 16)
-
-  return (
-    <Title fontSize={[fontSizesInPx[1], fontSizesInPx[2]]}>RANGES RC</Title>
-  )
-}
 
 type DivProps = HTMLProps<HTMLDivElement> &
   FlexboxProps<AppTheme> &
@@ -96,25 +90,17 @@ const ModifiedImg: React.FC<Omit<
   ${layout}
 `
 
-const LearnMore = () => {
-  return (
-    <ContentWrapper m="2rem" justifyContent="flex-end" flexDirection="column">
-      <h2>LEARN MORE</h2>
-      <button>down</button>
-    </ContentWrapper>
-  )
-}
-
 const IndexPage = () => {
   const { liveToBurn } = useStaticQuery(query)
 
   return (
     <>
       <IndexLayout>
-        <Landing>
-          <RangesRC />
-          <LearnMore />
-          {/* <Landing></Landing> */}
+        <Page>
+          <Landing />
+
+          <Title fontSize={[1, 3]}>RANGES RC</Title>
+          <Container />
           <Container>
             <ContentWrapper
               flexWrap="wrap"
@@ -123,38 +109,38 @@ const IndexPage = () => {
               justifyContent="center"
             >
               <ModifiedImg
-                size={400} //this is in pixel
+                size={400}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={150} //this is in pixel
+                size={150}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={150} //this is in pixel
+                size={150}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={400} //this is in pixel
+                size={400}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={150} //this is in pixel
+                size={150}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
               <ModifiedImg
-                size={150} //this is in pixel
+                size={150}
                 m="1rem"
                 fluid={liveToBurn.childImageSharp.fluid}
               />
             </ContentWrapper>
           </Container>
-        </Landing>
+        </Page>
       </IndexLayout>
     </>
   )

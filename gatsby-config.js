@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = {
   siteMetadata: {
     title: 'Ranges RC',
@@ -49,12 +47,6 @@ module.exports = {
             }
           }
         ]
-      }
-    },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/styles/typography`
       }
     },
     'gatsby-transformer-json',

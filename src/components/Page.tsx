@@ -6,7 +6,6 @@ const StyledPage = styled.div`
   display: block;
   flex: 1;
   position: relative;
-  margin-bottom: 3rem;
   background-color: ${getColor('neutralDark')};
 `
 
