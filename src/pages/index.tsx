@@ -1,10 +1,10 @@
-import React, { HTMLProps } from 'react'
+import React, { HTMLProps, useMemo } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
-import Img, { GatsbyImageFluidProps } from 'gatsby-image'
+import Img, { FluidObject, GatsbyImageFluidProps } from 'gatsby-image'
 
 import IndexLayout from 'src/layouts'
-import styled, { keyframes, useTheme } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { AppTheme, getColor } from 'src/styles/theme'
 import {
   flexbox,
@@ -18,21 +18,53 @@ import {
 } from 'styled-system'
 import Landing from 'src/components/Landing'
 import Page from 'src/components/Page'
-import Container from '../components/Container'
+import Song from 'src/components/Song'
+import { SongList } from 'src/data/songs'
+import Container from 'src/components/Container'
+
+// const query = graphql`
+//   query {
+//     liveToBurn: file(relativePath: { eq: "livetoburn.jpg" }) {
+//       childImageSharp {
+//         fluid(maxWidth: 1000) {
+//           ...GatsbyImageSharpFluid
+//         }
+//       }
+//     }
+//     waves: file(relativePath: { eq: "waves.jpg" }) {
+//       childImageSharp {
+//         fluid(maxWidth: 1000) {
+//           ...GatsbyImageSharpFluid
+//         }
+//       }
+//     }
+//   }
+// `
+
+interface AllFileProps {
+  allFile: {
+    edges: [
+      {
+        node: {
+          relativePath: string
+          childImageSharp: GatsbyImageFluidProps
+        }
+      }
+    ]
+  }
+}
 
 const query = graphql`
   query {
-    liveToBurn: file(relativePath: { eq: "livetoburn.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 1000) {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    waves: file(relativePath: { eq: "waves.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 1000) {
-          ...GatsbyImageSharpFluid
+    allFile(filter: { internal: { mediaType: { regex: "images/" } } }) {
+      edges {
+        node {
+          relativePath
+          childImageSharp {
+            fluid(maxWidth: 300) {
+              ...GatsbyImageSharpFluid
+            }
+          }
         }
       }
     }
@@ -61,8 +93,8 @@ const Title: React.FC<H1Props> = styled.h1`
   text-align: center;
   color: ${getColor('primary')};
   z-index: 200;
-  ${typography};
   animation: ${enterAnimation} 1s ease-in;
+  ${typography};
 `
 
 type DivProps = HTMLProps<HTMLDivElement> &
@@ -91,53 +123,39 @@ const ModifiedImg: React.FC<Omit<
 `
 
 const IndexPage = () => {
-  const { liveToBurn } = useStaticQuery(query)
+  const { allFile } = useStaticQuery<AllFileProps>(query)
+
+  const songListData = SongList.songs.map(
+    ({ imageName, spotifyLink, youtubeLink }) => {
+      const image = allFile.edges.find(
+        ({ node }) => node.relativePath === imageName
+      )
+
+      return {
+        image: image?.node.childImageSharp as GatsbyImageFluidProps,
+        spotifyLink,
+        youtubeLink
+      }
+    }
+  )
 
   return (
     <>
       <IndexLayout>
         <Page>
           <Landing />
-
           <Title fontSize={[1, 3]}>RANGES RC</Title>
           <Container />
           <Container>
             <ContentWrapper
               flexWrap="wrap"
-              flexDirection={['row', 'column']}
+              flexDirection={['column', 'row']}
               alignItems="center"
               justifyContent="center"
             >
-              <ModifiedImg
-                size={400}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
-              <ModifiedImg
-                size={150}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
-              <ModifiedImg
-                size={150}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
-              <ModifiedImg
-                size={400}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
-              <ModifiedImg
-                size={150}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
-              <ModifiedImg
-                size={150}
-                m="1rem"
-                fluid={liveToBurn.childImageSharp.fluid}
-              />
+              {songListData.map((song, id) => (
+                <Song key={id} {...song} />
+              ))}
             </ContentWrapper>
           </Container>
         </Page>
