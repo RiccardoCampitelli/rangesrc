@@ -3,7 +3,7 @@ import Img, { GatsbyImageFluidProps } from 'gatsby-image'
 
 import styled from 'styled-components'
 import { layout, LayoutProps, space, SpaceProps } from 'styled-system'
-import { AppTheme } from 'src/styles/theme'
+import { AppTheme, getColor } from 'src/styles/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
@@ -27,12 +27,13 @@ const IconContainer = styled.div`
 
 const Icon = styled(FontAwesomeIcon)`
   font-size: 700;
+  /* color: ${getColor('brandYoutube')}; */
 `
 
 const SongContainer = styled.div`
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   margin: 0.5rem;
-  background-color: papayawhip;
+  background-color: #ebe7e1;
   border-radius: 0.5rem;
 `
 
@@ -45,13 +46,17 @@ interface SongProps {
 const Song: React.FC<SongProps> = ({ image, spotifyLink, youtubeLink }) => {
   return (
     <SongContainer>
-      <SongImage size={200} marginX={2} fluid={image.fluid} />
+      <SongImage size={[200, 300]} marginX={2} fluid={image.fluid} />
       <IconContainer>
         <div>
-          <Icon icon={faSpotify} size="2x" />
+          <a href={spotifyLink} target="_blank" rel="noreferrer">
+            <Icon icon={faSpotify} size="2x" color="#1DB954" />
+          </a>
         </div>
         <div>
-          <Icon icon={faYoutube} size="2x" />
+          <a href={youtubeLink} target="_blank" rel="noreferrer">
+            <Icon icon={faYoutube} size="2x" color="#ff0101" />
+          </a>
         </div>
       </IconContainer>
     </SongContainer>

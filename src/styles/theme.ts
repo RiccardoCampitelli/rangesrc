@@ -17,6 +17,8 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
     neutralMidLight: string
     neutralLight: string
     neutralLightest: string
+    brandYoutube: string
+    brandSpotify: string
   }
   fonts: {
     // normal: string
@@ -50,7 +52,9 @@ const baseTheme = {
     neutralMid: '#cacdcd',
     neutralMidLight: '#d9dbdb',
     neutralLight: '#eaeded',
-    neutralLightest: '#fff'
+    neutralLightest: '#fff',
+    brandYoutube: '#ff0101',
+    brandSpotify: '#1DB954'
   },
   fonts: {}
 }
@@ -76,7 +80,8 @@ const theme: Partial<AppTheme> = {
     '12rem',
     '18rem',
     '32rem',
-    '52rem'
+    '52rem',
+    '70rem'
   ],
   lineHeights: {
     solid: '1rem',

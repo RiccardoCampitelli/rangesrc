@@ -93,6 +93,7 @@ const Title: React.FC<H1Props> = styled.h1`
   text-align: center;
   color: ${getColor('primary')};
   z-index: 200;
+  padding-top: 1rem;
   animation: ${enterAnimation} 1s ease-in;
   ${typography};
 `
@@ -106,20 +107,6 @@ const ContentWrapper: React.FC<DivProps> = styled.div`
   display: flex;
   ${flexbox};
   ${space};
-`
-
-type ModifiedImgProps = GatsbyImageFluidProps &
-  SpaceProps<AppTheme> &
-  LayoutProps<AppTheme>
-
-const ModifiedImg: React.FC<Omit<
-  ModifiedImgProps,
-  'propTypes' | 'ref'
->> = styled(Img)`
-  height: 20%;
-  width: 20%;
-  ${space};
-  ${layout}
 `
 
 const IndexPage = () => {
@@ -145,7 +132,6 @@ const IndexPage = () => {
         <Page>
           <Landing />
           <Title fontSize={[1, 3]}>RANGES RC</Title>
-          <Container />
           <Container>
             <ContentWrapper
               flexWrap="wrap"

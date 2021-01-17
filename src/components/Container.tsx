@@ -1,23 +1,23 @@
 import * as React from 'react'
 import styled from 'styled-components/macro'
 
-import { widths } from '../styles/variables'
-import { getEmSize } from '../styles/mixins'
+import { AppTheme } from 'src/styles/theme'
+import { space, layout, SpaceProps, LayoutProps } from 'styled-system'
 
-const StyledContainer = styled.div`
+interface StyledContainerProps
+  extends SpaceProps<AppTheme>,
+    LayoutProps<AppTheme> {}
+
+const StyledContainer = styled.div<StyledContainerProps>`
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: auto;
-  max-width: ${getEmSize(widths.lg)}em;
+  ${space}
+  ${layout}
 `
 
-interface ContainerProps {
-  className?: string
-}
-
-const Container: React.FC<ContainerProps> = ({ children, className }) => (
-  <StyledContainer className={className}>{children}</StyledContainer>
+const Container: React.FC = ({ children }) => (
+  <StyledContainer marginX="auto" width="auto" maxWidth={[9, 10]}>
+    {children}
+  </StyledContainer>
 )
 
 export default Container
