@@ -56,6 +56,13 @@ module.exports = {
         siteUrl: 'https://www.google.com/'
       }
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Passion One`],
+        display: 'swap'
+      }
+    },
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',

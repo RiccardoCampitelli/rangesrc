@@ -1,16 +1,14 @@
-import React, { HTMLProps, useMemo } from 'react'
+import React, { HTMLProps } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 
-import Img, { FluidObject, GatsbyImageFluidProps } from 'gatsby-image'
+import { GatsbyImageFluidProps } from 'gatsby-image'
 
 import IndexLayout from 'src/layouts'
 import styled, { keyframes } from 'styled-components'
-import { AppTheme, getColor } from 'src/styles/theme'
+import { AppTheme, getColor, getLetterSpacing } from 'src/styles/theme'
 import {
   flexbox,
   FlexboxProps,
-  layout,
-  LayoutProps,
   space,
   SpaceProps,
   typography,
@@ -21,25 +19,6 @@ import Page from 'src/components/Page'
 import Song from 'src/components/Song'
 import { SongList } from 'src/data/songs'
 import Container from 'src/components/Container'
-
-// const query = graphql`
-//   query {
-//     liveToBurn: file(relativePath: { eq: "livetoburn.jpg" }) {
-//       childImageSharp {
-//         fluid(maxWidth: 1000) {
-//           ...GatsbyImageSharpFluid
-//         }
-//       }
-//     }
-//     waves: file(relativePath: { eq: "waves.jpg" }) {
-//       childImageSharp {
-//         fluid(maxWidth: 1000) {
-//           ...GatsbyImageSharpFluid
-//         }
-//       }
-//     }
-//   }
-// `
 
 interface AllFileProps {
   allFile: {
@@ -87,6 +66,9 @@ type H1Props = HTMLProps<HTMLHeadElement> & TypographyProps<AppTheme>
 
 const Title: React.FC<H1Props> = styled.h1`
   position: sticky;
+  font-family: 'Passion One';
+  font-weight: 900;
+  letter-spacing: ${getLetterSpacing('tracked')};
   top: 0;
   margin-top: -70vh;
   margin-bottom: 70vh;
@@ -131,7 +113,7 @@ const IndexPage = () => {
       <IndexLayout>
         <Page>
           <Landing />
-          <Title fontSize={[1, 3]}>RANGES RC</Title>
+          <Title fontSize={[1, 4]}>RANGES RC</Title>
           <Container>
             <ContentWrapper
               flexWrap="wrap"
