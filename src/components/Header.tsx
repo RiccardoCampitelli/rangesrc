@@ -3,6 +3,8 @@ import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby'
 import styled from 'styled-components'
 import { space, SpaceProps } from 'styled-system'
 
+import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Burger } from 'src/components/Burger'
 import { heights, dimensions, colors } from '../styles/variables'
 import { AppTheme, getColor, getFontWeight } from '../styles/theme'
 
@@ -19,28 +21,6 @@ const StyledHeader = styled.header`
   width: 100%;
 `
 
-// const Title = styled.h1`
-//   color: ${colors.white};
-//   text-align: center;
-// `
-
-// const Triangle = styled.div`
-// position: absolute;
-// top: ${heights.header}px;
-//   left: 0;
-//   width: 100%;
-//   overflow: hidden;
-//   line-height: 0;
-//   z-index: 101;
-// `
-
-// const Svg = styled.svg`
-//   position: relative;
-//   display: block;
-//   width: calc(100% + 1.3px);
-//   height: 6rem;
-// `
-
 const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
   SpaceProps<AppTheme>> = styled(GatsbyLink)`
   color: ${getColor('primary')};
@@ -53,14 +33,29 @@ interface HeaderProps {
   title: string
 }
 
-const Header: React.FC<HeaderProps> = () => (
-  <StyledHeader>
-    <Link to="/">Home</Link>
-    <Link mx={2} to="/shop">
-      Shop
-    </Link>
-    <Link to="/about">About</Link>
-  </StyledHeader>
-)
+const Header: React.FC<HeaderProps> = () => {
+  const { screenSize } = useScreenSize()
+
+  console.log({ screenSize })
+
+  const isSmallOrMedium = screenSize === 'small' || screenSize === 'medium'
+
+  if (isSmallOrMedium)
+    return (
+      <StyledHeader>
+        <Burger />
+      </StyledHeader>
+    )
+
+  return (
+    <StyledHeader>
+      <Link to="/">Home</Link>
+      <Link mx={2} to="/shop">
+        Shop
+      </Link>
+      <Link to="/about">About</Link>
+    </StyledHeader>
+  )
+}
 
 export default Header

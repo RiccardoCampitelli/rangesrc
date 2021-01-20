@@ -77,6 +77,7 @@ const Title: React.FC<H1Props> = styled.h1`
   z-index: 200;
   padding-top: 1rem;
   animation: ${enterAnimation} 1s ease-in;
+  user-select: none;
   ${typography};
 `
 
@@ -113,7 +114,7 @@ const IndexPage = () => {
       <IndexLayout>
         <Page>
           <Landing />
-          <Title fontSize={[1, 4]}>RANGES RC</Title>
+          <Title fontSize={[1, 3, 4]}>RANGES RC</Title>
           <Container>
             <ContentWrapper
               flexWrap="wrap"
