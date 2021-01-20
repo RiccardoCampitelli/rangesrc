@@ -36,8 +36,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
   const { screenSize } = useScreenSize()
 
-  console.log({ screenSize })
-
   const isSmallOrMedium = screenSize === 'small' || screenSize === 'medium'
 
   if (isSmallOrMedium)

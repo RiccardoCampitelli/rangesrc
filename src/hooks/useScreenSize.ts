@@ -8,7 +8,7 @@ const pxToNumber = (value: string) => parseInt(value.slice(0, -2), 10)
 
 const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState<ScreenSize>('unset')
-  const [windowWidth, setWindowWidth] = useState(0)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const { breakpoints } = useTheme()
 
   useEventListener('resize', () => {

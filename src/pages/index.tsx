@@ -18,7 +18,7 @@ import Landing from 'src/components/Landing'
 import Page from 'src/components/Page'
 import Song from 'src/components/Song'
 import { SongList } from 'src/data/songs'
-import Container from 'src/components/Container'
+import GatsbyBackgroundImage from 'gatsby-background-image'
 
 interface AllFileProps {
   allFile: {
@@ -71,7 +71,7 @@ const Title: React.FC<H1Props> = styled.h1`
   letter-spacing: ${getLetterSpacing('tracked')};
   top: 0;
   margin-top: -70vh;
-  margin-bottom: 70vh;
+  margin-bottom: calc(70vh - 160px);
   text-align: center;
   color: ${getColor('primary')};
   z-index: 200;
@@ -92,6 +92,11 @@ const ContentWrapper: React.FC<DivProps> = styled.div`
   ${space};
 `
 
+const BackgroundImage = styled(GatsbyBackgroundImage)`
+  padding-top: 150px;
+  height: 100vh;
+`
+
 const IndexPage = () => {
   const { allFile } = useStaticQuery<AllFileProps>(query)
 
@@ -109,13 +114,17 @@ const IndexPage = () => {
     }
   )
 
+  const fogImage = allFile.edges.find(
+    node => node.node.relativePath === 'fog.jpg'
+  )
+
   return (
     <>
       <IndexLayout>
         <Page>
           <Landing />
           <Title fontSize={[1, 3, 4]}>RANGES RC</Title>
-          <Container>
+          <BackgroundImage fluid={fogImage?.node.childImageSharp.fluid}>
             <ContentWrapper
               flexWrap="wrap"
               flexDirection={['column', 'row']}
@@ -126,7 +135,7 @@ const IndexPage = () => {
                 <Song key={id} {...song} />
               ))}
             </ContentWrapper>
-          </Container>
+          </BackgroundImage>
         </Page>
       </IndexLayout>
     </>
