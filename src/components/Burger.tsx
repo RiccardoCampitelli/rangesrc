@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import { getColor } from 'src/styles/theme'
 
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ const BurgerButton = styled.button`
   background: inherit;
   border: none;
   padding: 0;
-
+  z-index: 101;
   &:focus {
     outline: none;
   }
@@ -17,8 +17,8 @@ const Rect = styled.rect`
   fill: ${getColor('primary')};
 `
 
-const Burger: React.FC = () => (
-  <BurgerButton>
+const Burger = ({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <BurgerButton {...props}>
     <svg viewBox="0 0 100 80" width="40" height="40">
       <Rect width="100" height="20" rx="8" />
       <Rect y="30" width="100" height="20" rx="8" />

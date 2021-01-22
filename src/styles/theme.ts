@@ -129,6 +129,10 @@ export const getLetterSpacing = (
 ) => (p: ThemedStyledProps<unknown, DefaultTheme>) =>
   p.theme.letterSpacings[letterSpacing]
 
+export const getSpace = (space: number) => (
+  p: ThemedStyledProps<unknown, DefaultTheme>
+) => p.theme.space[space]
+
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends AppTheme {}
