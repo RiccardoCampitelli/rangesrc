@@ -6,6 +6,12 @@ const StyledLayoutRoot = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  overflow-y: scroll;
+
+  background: #000000;
+  background: -webkit-linear-gradient(to bottom, #434343, #000000);
+  background: linear-gradient(to bottom, #434343, #000000);
 `
 
 interface LayoutRootProps {

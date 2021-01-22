@@ -29,11 +29,7 @@ const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
   ${space}
 `
 
-interface HeaderProps {
-  title: string
-}
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
   const { screenSize } = useScreenSize()
 
   const isSmallOrMedium = screenSize === 'small' || screenSize === 'medium'

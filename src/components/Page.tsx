@@ -4,9 +4,11 @@ import styled from 'styled-components'
 
 const StyledPage = styled.div`
   display: block;
-  flex: 1;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  background-color: ${getColor('neutralDark')};
+  /* background-color: ${getColor('neutralDark')}; */
 `
 
 interface PageProps {
