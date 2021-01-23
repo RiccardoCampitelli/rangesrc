@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Img, { GatsbyImageFluidProps } from 'gatsby-image'
 
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { layout, LayoutProps, space, SpaceProps } from 'styled-system'
-import { AppTheme, getColor } from 'src/styles/theme'
+import { AppTheme } from 'src/styles/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import useIntersectionObserver from 'src/hooks/useIntersectionObserver'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 type SongImageProps = GatsbyImageFluidProps &
   SpaceProps<AppTheme> &
@@ -27,39 +29,85 @@ const IconContainer = styled.div`
 
 const Icon = styled(FontAwesomeIcon)`
   font-size: 700;
-  /* color: ${getColor('brandYoutube')}; */
 `
 
-const SongContainer = styled.div`
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`
+
+interface SongContainerProps {
+  index: number
+}
+
+const DELAY = 1
+
+const calculateAnimationDelay = ({ index }: any) => `${DELAY + index * DELAY}s`
+
+const SongContainer = styled.div<SongContainerProps>`
   padding: 1rem 0.5rem;
   margin: 0.5rem;
   background-color: #ebe7e1;
   border-radius: 0.5rem;
+  opacity: 0;
+  animation: ${fadeIn} 1s forwards ${calculateAnimationDelay};
+`
+
+const FixedHeightDiv = styled.div<LayoutProps<AppTheme>>`
+  ${layout}
 `
 
 interface SongProps {
   image: GatsbyImageFluidProps
+  index: number
   spotifyLink: string
   youtubeLink: string
 }
 
-const Song: React.FC<SongProps> = ({ image, spotifyLink, youtubeLink }) => {
+const Song: React.FC<SongProps> = ({
+  index,
+  image,
+  spotifyLink,
+  youtubeLink
+}) => {
+  const [ref, { entry }] = useIntersectionObserver()
+
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(current => {
+      if (current) return current
+
+      return entry?.isIntersecting ?? false
+    })
+  }, [entry?.isIntersecting])
+
   return (
-    <SongContainer>
-      <SongImage size={[200, 300]} marginX={2} fluid={image.fluid} />
-      <IconContainer>
-        <div>
-          <a href={spotifyLink} target="_blank" rel="noreferrer">
-            <Icon icon={faSpotify} size="2x" color="#1DB954" />
-          </a>
-        </div>
-        <div>
-          <a href={youtubeLink} target="_blank" rel="noreferrer">
-            <Icon icon={faYoutube} size="2x" color="#ff0101" />
-          </a>
-        </div>
-      </IconContainer>
-    </SongContainer>
+    <FixedHeightDiv ref={ref} height={[300, 380]}>
+      {isVisible && (
+        <SongContainer index={index}>
+          <SongImage size={[200, 300]} marginX={2} fluid={image.fluid} />
+          <IconContainer>
+            <div>
+              <a href={spotifyLink} target="_blank" rel="noreferrer">
+                <Icon icon={faSpotify} size="2x" color="#1DB954" />
+              </a>
+            </div>
+            <div>
+              <a href={youtubeLink} target="_blank" rel="noreferrer">
+                <Icon icon={faYoutube} size="2x" color="#ff0101" />
+              </a>
+            </div>
+          </IconContainer>
+        </SongContainer>
+      )}
+    </FixedHeightDiv>
   )
 }
 

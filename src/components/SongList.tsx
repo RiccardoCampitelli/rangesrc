@@ -75,7 +75,7 @@ const SongList = () => {
       justifyContent="center"
     >
       {songListData.map((song, id) => (
-        <Song key={id} {...song} />
+        <Song key={id} index={id} {...song} />
       ))}
     </ContentWrapper>
   )
