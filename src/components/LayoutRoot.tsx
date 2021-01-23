@@ -9,9 +9,9 @@ const StyledLayoutRoot = styled.div`
 
   overflow-y: scroll;
 
-  background: #000000;
-  background: -webkit-linear-gradient(to bottom, #434343, #000000);
-  background: linear-gradient(to bottom, #434343, #000000);
+  background: #a8b6ba;
+  background: -webkit-linear-gradient(to bottom, #a8b6ba, #000000);
+  background: linear-gradient(to bottom, #a8b6ba, #000000);
 `
 
 interface LayoutRootProps {

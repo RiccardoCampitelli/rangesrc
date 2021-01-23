@@ -5,7 +5,7 @@ import { space, SpaceProps } from 'styled-system'
 
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Burger } from 'src/components/Burger'
-import { faCross, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { heights, dimensions, colors } from '../styles/variables'
 import { AppTheme, getColor, getFontWeight, getSpace } from '../styles/theme'
 import { Icon } from './Icon'
