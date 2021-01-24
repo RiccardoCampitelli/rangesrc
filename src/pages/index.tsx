@@ -2,7 +2,7 @@ import React from 'react'
 
 import IndexLayout from 'src/layouts'
 import Landing from 'src/components/Landing'
-import Page from 'src/components/page'
+import Page from 'src/components/Page'
 
 import { Title } from 'src/components/Title'
 import { SongList } from 'src/components/SongList'
