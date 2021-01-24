@@ -1,6 +1,6 @@
 import React from 'react'
 import { faInstagram, faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { AppTheme, getColor } from 'src/styles/theme'
+import { AppTheme } from 'src/styles/theme'
 import { Icon } from 'src/components/Icon'
 import styled from 'styled-components'
 import {
@@ -14,11 +14,6 @@ import {
 
 const StyledFooter = styled.footer`
   flex: 1 1 auto;
-  /* flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-  /* color: ${getColor('primary')}; */
-  /* text-align: center; */
 `
 
 type ParagraphProps = TypographyProps<AppTheme> &
@@ -34,7 +29,7 @@ const P = styled.p<ParagraphProps>`
 const Hr = styled.hr`
   margin-top: 5rem;
   width: 100%;
-  color: ${getColor('primary')};
+  color: ${props => props.theme.colors.primary};
 `
 
 const Footer = () => {

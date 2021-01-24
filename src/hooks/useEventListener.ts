@@ -5,7 +5,7 @@ type AnyFunction = (...args: any[]) => any
 export function useEventListener(
   eventName: string,
   handler: AnyFunction,
-  element: any = window
+  element: any = null
 ) {
   const savedHandler = useRef<AnyFunction | null>(null)
 

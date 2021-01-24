@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'styled-components'
+import { window } from 'browser-monads'
 import { useEventListener } from './useEventListener'
 
 type ScreenSize = 'small' | 'medium' | 'large' | 'x-large' | 'unset'
@@ -11,9 +12,13 @@ const useScreenSize = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const { breakpoints } = useTheme()
 
-  useEventListener('resize', () => {
-    setWindowWidth(window.innerWidth)
-  })
+  useEventListener(
+    'resize',
+    () => {
+      setWindowWidth(window.innerWidth)
+    },
+    window
+  )
 
   useEffect(() => {
     if (windowWidth < pxToNumber(breakpoints.sm)) setScreenSize('small')

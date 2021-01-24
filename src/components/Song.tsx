@@ -7,7 +7,6 @@ import { AppTheme } from 'src/styles/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import useIntersectionObserver from 'src/hooks/useIntersectionObserver'
-import { useScreenSize } from 'src/hooks/useScreenSize'
 
 type SongImageProps = GatsbyImageFluidProps &
   SpaceProps<AppTheme> &

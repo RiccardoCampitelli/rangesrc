@@ -23,6 +23,7 @@
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
     "import/no-unresolved": "off",
     "consistent-return": "off",
     "prefer-destructuring": "off",
