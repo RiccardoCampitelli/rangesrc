@@ -12,7 +12,9 @@ const IndexPage = () => {
     <IndexLayout>
       <Page>
         <Landing />
-        <Title fontSize={[1, 3, 4]}>RANGES RC</Title>
+        <Title sticky fontSize={[1, 3, 4]}>
+          RANGES RC
+        </Title>
         <SongList />
       </Page>
     </IndexLayout>

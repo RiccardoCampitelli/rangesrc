@@ -1,5 +1,5 @@
 import { HTMLProps } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { typography, TypographyProps } from 'styled-system'
 import { AppTheme, getColor, getLetterSpacing } from 'src/styles/theme'
 
@@ -15,16 +15,23 @@ const enterAnimation = keyframes`
 }
 `
 
-type H1Props = HTMLProps<HTMLHeadElement> & TypographyProps<AppTheme>
+type H1Props = HTMLProps<HTMLHeadElement> &
+  TypographyProps<AppTheme> & {
+    sticky: boolean
+  }
 
-const Title: React.FC<H1Props> = styled.h1`
+const stickyStyles = css`
+  margin-top: -70vh;
+  margin-bottom: 70vh;
+`
+
+const Title: React.FC<H1Props> = styled.h1<{ sticky: boolean }>`
   position: sticky;
   font-family: 'Passion One';
   font-weight: 900;
   letter-spacing: ${getLetterSpacing('tracked')};
   top: 0;
-  margin-top: -70vh;
-  margin-bottom: 70vh;
+  ${props => (props.sticky === true ? stickyStyles : undefined)}
   text-align: center;
   color: ${getColor('primary')};
   z-index: 100;
