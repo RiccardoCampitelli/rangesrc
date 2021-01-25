@@ -20,8 +20,8 @@ const BackgroundImage = styled(GatsbyBackgroundImage)`
   height: 100vh;
 
   filter: brightness(50%);
-  -webkit-box-shadow: 5px 5px 50px 15px #000000;
-  box-shadow: 5px 5px 50px 15px #000000;
+  box-shadow: 5px 10px 40px 5px rgba(0, 0, 0, 0.99),
+    5px 10px 45px 35px rgba(0, 0, 0, 0.6), 5px 10px 50px 50px rgba(0, 0, 0, 0.4);
 `
 
 const RelativeContainer = styled.div`

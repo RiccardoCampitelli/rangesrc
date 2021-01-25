@@ -45,7 +45,7 @@ interface SongContainerProps {
   index: number
 }
 
-const DELAY = 1
+const DELAY = 0.5
 
 const calculateAnimationDelay = ({ index }: any) => `${DELAY + index * DELAY}s`
 
