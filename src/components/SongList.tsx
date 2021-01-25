@@ -21,8 +21,8 @@ interface AllFileProps {
 }
 
 const query = graphql`
-  query {
-    allFile(filter: { internal: { mediaType: { regex: "images/" } } }) {
+  {
+    allFile(filter: { sourceInstanceName: { eq: "albums" } }) {
       edges {
         node {
           relativePath
@@ -75,7 +75,7 @@ const SongList = () => {
       justifyContent="center"
     >
       {songListData.map((song, id) => (
-        <Song key={id} index={id} {...song} />
+        <Song key={song.spotifyLink} index={id} {...song} />
       ))}
     </ContentWrapper>
   )

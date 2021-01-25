@@ -7,7 +7,7 @@ const query = graphql`
   query {
     forest: file(relativePath: { eq: "background_forest.png" }) {
       childImageSharp {
-        fluid(maxWidth: 1000) {
+        fluid(maxWidth: 500) {
           ...GatsbyImageSharpFluid
         }
       }
