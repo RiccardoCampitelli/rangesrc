@@ -2,11 +2,11 @@ module.exports = {
   siteMetadata: {
     title: 'Ranges RC',
     description: 'Ranges RC ecommerce website',
-    keywords: 'gatsbyjs, gatsby, javascript, sample, something',
+    keywords: 'rangesrc, melbourne, music, rap',
     siteUrl: 'https://www.google.com/',
     author: {
       name: 'Riccardo Campitelli',
-      url: '',
+      url: 'https://github.com/RiccardoCampitelli',
       email: 'riccardo.campitelli91@gmail.com'
     }
   },
@@ -29,7 +29,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://www.google.com/'
+        siteUrl: 'https://rangesrc.netlify.app/'
       }
     },
     {
