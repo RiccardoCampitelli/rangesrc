@@ -5,7 +5,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 
 const query = graphql`
   query {
-    forest: file(relativePath: { eq: "background_forest.png" }) {
+    forest: file(relativePath: { eq: "forest_resized.jpg" }) {
       childImageSharp {
         fluid(maxWidth: 500) {
           ...GatsbyImageSharpFluid
