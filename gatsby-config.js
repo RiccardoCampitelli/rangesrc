@@ -44,6 +44,8 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-root-import'
+    'gatsby-plugin-root-import',
+    'gatsby-plugin-advanced-sitemap',
+    'gatsby-plugin-robots-txt'
   ]
 }
