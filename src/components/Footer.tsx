@@ -1,6 +1,6 @@
 import React from 'react'
 import { faInstagram, faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { AppTheme } from 'src/styles/theme'
+import { AppTheme, getColor } from 'src/styles/theme'
 import { Icon } from 'src/components/Icon'
 import styled from 'styled-components'
 import {
@@ -11,6 +11,8 @@ import {
   SpaceProps,
   ColorProps
 } from 'styled-system'
+
+import { SocialContacts } from 'src/data/social-contacts'
 
 const StyledFooter = styled.footer`
   flex: 1 1 auto;
@@ -32,6 +34,10 @@ const Hr = styled.hr`
   color: ${props => props.theme.colors.primary};
 `
 
+const A = styled.a`
+  color: ${getColor('primary')};
+`
+
 const Footer = () => {
   return (
     <>
@@ -39,11 +45,22 @@ const Footer = () => {
       <StyledFooter>
         <P color="primary" textAlign="center">
           Follow us!
-          <Icon ml={2} icon={faInstagram} />
-          <Icon ml={2} icon={faSpotify} />
+          <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
+            <Icon ml={2} icon={faInstagram} color="primary" />
+          </A>
+          <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
+            <Icon ml={2} icon={faSpotify} />
+          </A>
         </P>
         <P fontSize={12} color="primary" textAlign="right" marginX={2}>
-          Made with ♥️ by Riccardo Campitelli
+          Made with ♥️ by{' '}
+          <A
+            href="https://github.com/RiccardoCampitelli"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Riccardo Campitelli
+          </A>
         </P>
       </StyledFooter>
     </>

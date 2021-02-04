@@ -51,15 +51,14 @@ const calculateAnimationDelay = ({ index }: any) => `${DELAY + index * DELAY}s`
 
 const SongContainer = styled.div<SongContainerProps>`
   padding: 1rem 0.5rem;
-  /* margin: 0.5rem; */
   background-color: #ebe7e1;
   border-radius: 0.5rem;
   opacity: 0;
   animation: ${fadeIn} 1s forwards ${calculateAnimationDelay};
 `
 
-const FixedHeightDiv = styled.div<LayoutProps<AppTheme>>`
-  margin: 0.5rem;
+const FixedHeightDiv = styled.div<LayoutProps<AppTheme> & SpaceProps<AppTheme>>`
+  ${space}
   ${layout}
 `
 
@@ -89,7 +88,7 @@ const Song: React.FC<SongProps> = ({
   }, [entry?.isIntersecting])
 
   return (
-    <FixedHeightDiv ref={ref} height={[300, 390]}>
+    <FixedHeightDiv ref={ref} height={[300, 390]} margin={[1, 4]}>
       {isVisible && (
         <SongContainer index={index}>
           <SongImage size={[200, 300]} marginX={2} fluid={image.fluid} />
