@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Ranges RC',
@@ -37,6 +41,14 @@ module.exports = {
       options: {
         fonts: [`Passion One`],
         display: 'swap'
+      }
+    },
+    {
+      resolve: 'gatsby-source-shopify',
+      options: {
+        shopName: 'rangesrc',
+        accessToken: process.env.STOREFRONT_API_ACCESS_TOKEN,
+        verbose: true
       }
     },
     `gatsby-plugin-styled-components`,

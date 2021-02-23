@@ -20,9 +20,9 @@ const Rect = styled.rect`
 const Burger = (props: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <BurgerButton {...props}>
     <svg viewBox="0 0 100 80" width="40" height="40">
-      <Rect width="100" height="20" rx="8" />
-      <Rect y="30" width="100" height="20" rx="8" />
-      <Rect y="60" width="100" height="20" rx="8" />
+      <Rect width="90" height="15" rx="8" />
+      <Rect x="2" y="30" width="90" height="15" rx="8" />
+      <Rect x="4" y="60" width="90" height="15" rx="8" />
     </svg>
   </BurgerButton>
 )

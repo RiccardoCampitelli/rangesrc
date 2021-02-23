@@ -10,17 +10,18 @@ import { heights, dimensions, colors } from '../styles/variables'
 import { AppTheme, getColor, getFontWeight, getSpace } from '../styles/theme'
 import { Icon } from './Icon'
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.header<SpaceProps<AppTheme>>`
   display: flex;
   align-items: center;
 
   height: ${heights.header}px;
-  padding: 0 ${dimensions.containerPadding}rem;
+  /* padding: 0 ${dimensions.containerPadding}rem; */
   background-color: transparent;
   color: ${colors.white};
   position: fixed;
   z-index: 101;
   width: 100%;
+  ${space}
 `
 
 const Link: React.FunctionComponent<Omit<GatsbyLinkProps<{}>, 'ref' | 'state'> &
@@ -74,7 +75,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <StyledHeader>
+      <StyledHeader paddingX={[2, 3]}>
         {isSmallOrMedium ? (
           <Burger onClick={toggleIsOpen} />
         ) : (
