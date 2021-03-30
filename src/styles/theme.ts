@@ -133,6 +133,10 @@ export const getSpace = (space: number) => (
   p: ThemedStyledProps<unknown, DefaultTheme>
 ) => p.theme.space[space]
 
+export const getBreakpoint = (breakpoint: keyof AppTheme['breakpoints']) => (
+  p: ThemedStyledProps<unknown, DefaultTheme>
+) => p.theme.breakpoints[breakpoint]
+
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends AppTheme {}

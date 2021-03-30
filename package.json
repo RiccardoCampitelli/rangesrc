@@ -28,6 +28,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@types/shopify-buy": "^2.10.5",
     "babel-plugin-styled-components": "^1.12.0",
     "browser-monads": "^1.0.0",
     "classnames": "^2.2.6",
