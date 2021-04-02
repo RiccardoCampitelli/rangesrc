@@ -13,6 +13,7 @@ import {
 } from 'styled-system'
 
 import { SocialContacts } from 'src/data/social-contacts'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 const StyledFooter = styled.footer`
   flex: 1 1 auto;
@@ -39,19 +40,25 @@ const A = styled.a`
 `
 
 const Footer = () => {
+  const { screenSize } = useScreenSize()
+
+  const shouldShowLinks = screenSize === 'small'
+
   return (
     <>
       <Hr />
       <StyledFooter>
-        <P color="primary" textAlign="center">
-          Follow us!
-          <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
-            <Icon ml={2} icon={faInstagram} color="primary" />
-          </A>
-          <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
-            <Icon ml={2} icon={faSpotify} />
-          </A>
-        </P>
+        {shouldShowLinks && (
+          <P color="primary" textAlign="center">
+            Follow us!
+            <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
+              <Icon ml={2} icon={faInstagram} color="primary" />
+            </A>
+            <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
+              <Icon ml={2} icon={faSpotify} />
+            </A>
+          </P>
+        )}
         <P fontSize={12} color="primary" textAlign="right" marginX={2}>
           Made with ♥️ by{' '}
           <A

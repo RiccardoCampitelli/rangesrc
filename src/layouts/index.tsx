@@ -6,6 +6,8 @@ import 'modern-normalize'
 import '../styles/normalize'
 
 import { Footer } from 'src/components/Footer'
+import { SideSocial } from 'src/components/SideSocial'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 import Header from '../components/Header'
 import LayoutRoot from '../components/LayoutRoot'
 import LayoutMain from '../components/LayoutMain'
@@ -37,6 +39,10 @@ const IndexLayout: React.FC = ({ children }) => {
     site: { siteMetadata }
   } = useStaticQuery<StaticQueryProps>(query)
 
+  const { screenSize } = useScreenSize()
+
+  const shouldShowSideSocial = screenSize !== 'small' && screenSize !== 'unset'
+
   return (
     <LayoutRoot>
       <Helmet
@@ -50,6 +56,7 @@ const IndexLayout: React.FC = ({ children }) => {
         ]}
       />
       <Header />
+      {shouldShowSideSocial && <SideSocial />}
       <LayoutMain>{children}</LayoutMain>
       <Footer />
     </LayoutRoot>
