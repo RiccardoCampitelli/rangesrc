@@ -1,5 +1,9 @@
 import React from 'react'
-import { faInstagram, faSpotify } from '@fortawesome/free-brands-svg-icons'
+import {
+  faInstagram,
+  faSpotify,
+  faYoutube
+} from '@fortawesome/free-brands-svg-icons'
 import { AppTheme, getColor } from 'src/styles/theme'
 import { Icon } from 'src/components/Icon'
 import styled from 'styled-components'
@@ -56,6 +60,9 @@ const Footer = () => {
             </A>
             <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
               <Icon ml={2} icon={faSpotify} />
+            </A>
+            <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
+              <Icon mr={2} icon={faYoutube} />
             </A>
           </P>
         )}
