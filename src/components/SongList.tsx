@@ -41,7 +41,7 @@ type DivProps = HTMLProps<HTMLDivElement> &
   FlexboxProps<AppTheme> &
   SpaceProps<AppTheme>
 
-const ContentWrapper: React.FC<DivProps> = styled.div`
+export const ContentWrapper: React.FC<DivProps> = styled.div`
   height: auto;
   min-height: 40rem;
   background-color: inherit;

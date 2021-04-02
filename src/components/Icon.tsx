@@ -12,6 +12,7 @@ import { AppTheme } from 'src/styles/theme'
 interface IconProps extends FontAwesomeIconProps, SpaceProps<AppTheme> {}
 
 const Icon: React.FC<IconProps> = styled(FontAwesomeIcon)`
+  cursor: pointer;
   ${space}
 `
 export { Icon }

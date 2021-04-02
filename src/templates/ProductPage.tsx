@@ -46,17 +46,17 @@ export const query = graphql`
           currencyCode
         }
       }
-      # images {
-      #   originalSrc
-      #   id
-      #   localFile {
-      #     childImageSharp {
-      #       fluid(maxWidth: 910) {
-      #         ...GatsbyImageSharpFluid_withWebp_tracedSVG
-      #       }
-      #     }
-      #   }
-      # }
+      images {
+        originalSrc
+        id
+        localFile {
+          childImageSharp {
+            fluid(maxWidth: 910) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
     }
   }
 `

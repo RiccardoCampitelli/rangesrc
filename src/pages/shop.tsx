@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import { Cart } from 'src/components/Cart/Cart'
-import { useAddItemToCart } from 'src/context/CartContext'
+import { ProductGrid } from 'src/components/Cart/ProductGrid'
+import { useLineItemUpdate } from 'src/context/CartContext'
 
 import styled from 'styled-components'
+import { GatsbyImageFluidProps } from 'gatsby-image'
 import Page from '../components/Page'
 import IndexLayout from '../layouts'
 
@@ -27,6 +28,19 @@ export const query = graphql`
         variants {
           id
           shopifyId
+          title
+          price
+        }
+        images {
+          originalSrc
+          id
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 910) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }
@@ -45,6 +59,17 @@ interface QueryData {
             {
               id: string
               shopifyId: string
+              title: string
+              price: string
+            }
+          ]
+          images: [
+            {
+              localFile: {
+                childImageSharp: {
+                  fluid: GatsbyImageFluidProps
+                }
+              }
             }
           ]
         }
@@ -54,27 +79,10 @@ interface QueryData {
 }
 
 const Shop = ({ data }: QueryData) => {
-  const items = data.allShopifyProduct.nodes
-
-  const addItemToCart = useAddItemToCart()
-
   return (
     <IndexLayout>
       <Page>
-        <Container>
-          <Cart />
-          {items.map(item => (
-            <div>
-              {item.handle}{' '}
-              <button
-                type="button"
-                onClick={() => addItemToCart(item.variants[0].shopifyId, '1')}
-              >
-                add
-              </button>
-            </div>
-          ))}
-        </Container>
+        <ProductGrid products={data.allShopifyProduct.nodes} />
       </Page>
     </IndexLayout>
   )

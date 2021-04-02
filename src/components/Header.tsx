@@ -4,18 +4,19 @@ import styled, { css } from 'styled-components'
 import { space, SpaceProps } from 'styled-system'
 
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useCartContext, useGoToCheckout } from 'src/context/CartContext'
 import { Burger } from 'src/components/Burger'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { heights, dimensions, colors } from '../styles/variables'
+import { faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { heights, colors } from '../styles/variables'
 import { AppTheme, getColor, getFontWeight, getSpace } from '../styles/theme'
 import { Icon } from './Icon'
 
 const StyledHeader = styled.header<SpaceProps<AppTheme>>`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   height: ${heights.header}px;
-  /* padding: 0 ${dimensions.containerPadding}rem; */
   background-color: transparent;
   color: ${colors.white};
   position: fixed;
@@ -63,8 +64,22 @@ const SideNav = styled.div<SideNavProps>`
   padding-top: 60px;
 `
 
+const Label = styled.div`
+  background-color: red;
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+`
+
 const Header: React.FC = () => {
   const { screenSize } = useScreenSize()
+  const goToCheckout = useGoToCheckout()
+  const { cart } = useCartContext()
   const [isOpen, setIsOpen] = useState(false)
 
   const isSmallOrMedium = screenSize === 'small' || screenSize === 'medium'
@@ -73,20 +88,41 @@ const Header: React.FC = () => {
 
   const closeMenu = () => setIsOpen(false)
 
+  const lineItems = cart.checkout?.lineItems
+
+  const total = lineItems.reduce((acc, item) => item.quantity + acc, 0)
+
+  console.log({ total })
+
+  const handleCheckout = () => {
+    if (total > 0) goToCheckout()
+  }
+
   return (
     <>
       <StyledHeader paddingX={[2, 3]}>
-        {isSmallOrMedium ? (
-          <Burger onClick={toggleIsOpen} />
-        ) : (
-          <>
-            <Link to="/">Home</Link>
-            <Link mx={2} to="/shop">
-              Shop
-            </Link>
-            <Link to="/about">About</Link>
-          </>
-        )}
+        <div>
+          {isSmallOrMedium ? (
+            <Burger onClick={toggleIsOpen} />
+          ) : (
+            <>
+              <Link to="/">Home</Link>
+              <Link mx={2} to="/shop">
+                Shop
+              </Link>
+              <Link to="/about">About</Link>
+            </>
+          )}
+        </div>
+        <div
+          role="button"
+          onClick={handleCheckout}
+          onKeyDown={event => event.key === 'enter' && handleCheckout()}
+          tabIndex={-1}
+        >
+          <Icon icon={faShoppingCart} size="2x" color="white" />
+          {total > 0 && <Label>{total}</Label>}
+        </div>
       </StyledHeader>
 
       <SideNav isOpen={isOpen}>
