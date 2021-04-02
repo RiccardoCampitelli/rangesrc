@@ -1,16 +1,11 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Img, { GatsbyImageFluidProps } from 'gatsby-image'
 import React from 'react'
-import {
-  useCartContext,
-  useGoToCheckout,
-  useLineItemUpdate
-} from 'src/context/CartContext'
+import { useCartContext, useLineItemUpdate } from 'src/context/CartContext'
 import { AppTheme, getColor, getFontWeight } from 'src/styles/theme'
 import styled from 'styled-components'
 import {
   layout,
-  LayoutProps,
   space,
   SpaceProps,
   typography,
@@ -88,10 +83,6 @@ const ProductGrid = ({ products }: ProductGridProps) => {
   } = useCartContext()
 
   const updateLineItems = useLineItemUpdate()
-
-  const goToCheckout = useGoToCheckout()
-
-  console.log({ lineItems })
 
   const findLineItem = (id: string) => {
     return lineItems.find(lineItem => lineItem.variant.id === id)

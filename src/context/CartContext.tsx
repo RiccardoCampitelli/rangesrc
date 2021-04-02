@@ -68,18 +68,11 @@ const CartContextProvider = ({ children }: any) => {
         try {
           const checkout = await fetchCheckout(client, existingCheckoutId)
           if (!checkout.completedAt) {
-            console.log('Checkout fetched from Shopify with id', checkout.id)
-            console.log('Checkout contains', checkout.lineItems)
             if (checkout) {
-              console.log({ checkout })
-              console.log('Updating checkout in browser')
               dispatch({ type: 'UPDATE_CHECKOUT', checkout })
             }
           }
         } catch {
-          console.log(
-            'Something went wrong and the checkout key had to be erased'
-          )
           localStorage.setItem(SHOPIFY_CHECKOUT_STORAGE_KEY, '')
         }
       }
@@ -88,7 +81,6 @@ const CartContextProvider = ({ children }: any) => {
         SHOPIFY_CHECKOUT_STORAGE_KEY,
         newCheckout.id.toString()
       )
-      console.log('The new checkout id stored is', newCheckout.id)
     }
 
     initializeCheckout()
@@ -106,7 +98,6 @@ function useLineItemUpdate() {
 
   async function addItemToCart(variantId: string, quantity: string | number) {
     if (variantId === '' || !quantity) {
-      console.error('Both a size and quantity are required.')
       return
     }
 
@@ -119,19 +110,13 @@ function useLineItemUpdate() {
       { variantId, quantity: parseInt(quantity, 10) }
     ]
 
-    console.log({ cart })
-
     const existingLineItem = cart.checkout.lineItems.find(
       ({ variant }) => variant.id == variantId
     )
 
-    console.log({ num: existingLineItem, variantId })
-
     // if existing then updateLineItems with correct quantity
 
     if (existingLineItem) {
-      console.log({ existingLineItem })
-
       const currentQuantity = existingLineItem.quantity
 
       const lineItemsToUpdate = [
@@ -154,10 +139,6 @@ function useLineItemUpdate() {
       checkoutId ?? '',
       lineItemsToAdd
     )
-
-    console.log('added new')
-
-    console.log({ newCheckout })
 
     dispatch({ type: 'UPDATE_CHECKOUT', checkout: newCheckout })
   }

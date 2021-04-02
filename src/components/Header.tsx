@@ -92,8 +92,6 @@ const Header: React.FC = () => {
 
   const total = lineItems.reduce((acc, item) => item.quantity + acc, 0)
 
-  console.log({ total })
-
   const handleCheckout = () => {
     if (total > 0) goToCheckout()
   }
