@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { getColor } from 'src/styles/theme'
+import { getColor, getSpace } from 'src/styles/theme'
 import styled from 'styled-components'
 
 const StyledPage = styled.div`
@@ -8,6 +8,7 @@ const StyledPage = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  /* max-width: ${getSpace(7)} */
   /* background-color: ${getColor('neutralDark')}; */
 `
 
