@@ -1,7 +1,5 @@
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Img, { GatsbyImageFluidProps } from 'gatsby-image'
 import React from 'react'
-import { useCartContext, useLineItemUpdate } from 'src/context/CartContext'
 import { AppTheme, getColor, getFontWeight } from 'src/styles/theme'
 import styled from 'styled-components'
 import {
@@ -11,7 +9,7 @@ import {
   typography,
   TypographyProps
 } from 'styled-system'
-import { Icon } from '../Icon'
+import { Link } from 'gatsby'
 import { ContentWrapper } from '../SongList'
 
 const LineItem = styled.div<SpaceProps>`
@@ -29,6 +27,7 @@ const Figure = styled.figure<SpaceProps>`
 const ProductFooter = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
 `
 
 const Text = styled.span<TypographyProps<AppTheme>>`
@@ -76,56 +75,34 @@ interface ProductGridProps {
 }
 
 const ProductGrid = ({ products }: ProductGridProps) => {
-  const {
-    cart: {
-      checkout: { lineItems }
-    }
-  } = useCartContext()
-
-  const updateLineItems = useLineItemUpdate()
-
-  const findLineItem = (id: string) => {
-    return lineItems.find(lineItem => lineItem.variant.id === id)
-  }
-
   return (
-    <ContentWrapper
-      flexWrap="wrap"
-      flexDirection={['column', 'row']}
-      alignItems="center"
-      justifyContent="center"
-      marginY={[5, 6]}
-    >
-      {products.map(({ images, variants, handle }) => (
-        <LineItem marginX={[0, 2]}>
-          <Text fontSize={1}>{handle}</Text>
-          <Figure margin={4}>
-            <ProductImage
-              size={[300, 400]}
-              fluid={images[0].localFile.childImageSharp.fluid}
-              alt=""
-            />
-          </Figure>
-          <ProductFooter>
-            <div>
-              <Icon
-                mx={[3, 4]}
-                icon={faMinus}
-                onClick={() => updateLineItems(variants[0].shopifyId, -1)}
-                color="white"
-              />
-              <Text>{findLineItem(variants[0].shopifyId)?.quantity ?? 0}</Text>
-              <Icon
-                mx={[3, 4]}
-                icon={faPlus}
-                onClick={() => updateLineItems(variants[0].shopifyId, 1)}
-                color="white"
-              />
-            </div>
-            <Text>${variants[0].price}</Text>
-          </ProductFooter>
-        </LineItem>
-      ))}
+    <ContentWrapper flexDirection="column" paddingTop={5}>
+      <Text fontSize={2}>Shop</Text>
+      <ContentWrapper
+        flexWrap="wrap"
+        flexDirection={['column', 'row']}
+        alignItems="center"
+        justifyContent="center"
+        marginBottom={[5, 6]}
+      >
+        {products.map(({ images, variants, handle }) => (
+          <LineItem marginX={[0, 2]}>
+            <Link to={`/product/${handle}`}>
+              <Figure margin={4}>
+                <ProductImage
+                  size={[300, 400]}
+                  fluid={images[0].localFile.childImageSharp.fluid}
+                  alt=""
+                />
+              </Figure>
+              <ProductFooter>
+                <Text fontSize={1}>{handle}</Text>
+                <Text>${variants[0].price}</Text>
+              </ProductFooter>
+            </Link>
+          </LineItem>
+        ))}
+      </ContentWrapper>
     </ContentWrapper>
   )
 }

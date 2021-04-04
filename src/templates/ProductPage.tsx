@@ -3,13 +3,7 @@ import { graphql } from 'gatsby'
 import IndexLayout from 'src/layouts'
 import styled from 'styled-components'
 import Img, { GatsbyImageFluidProps } from 'gatsby-image'
-import {
-  AppTheme,
-  getColor,
-  getFontSize,
-  getFontWeight,
-  getSpace
-} from 'src/styles/theme'
+import { AppTheme, getColor, getFontWeight, getSpace } from 'src/styles/theme'
 import {
   flexbox,
   FlexboxProps,
