@@ -62,7 +62,7 @@ const Footer = () => {
               <Icon ml={2} icon={faSpotify} />
             </A>
             <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
-              <Icon mr={2} icon={faYoutube} />
+              <Icon ml={2} icon={faYoutube} />
             </A>
           </P>
         )}
