@@ -39,10 +39,6 @@ const IndexLayout: React.FC = ({ children }) => {
     site: { siteMetadata }
   } = useStaticQuery<StaticQueryProps>(query)
 
-  const { screenSize } = useScreenSize()
-
-  const shouldShowSideSocial = screenSize !== 'small' && screenSize !== 'unset'
-
   return (
     <LayoutRoot>
       <Helmet
@@ -56,7 +52,7 @@ const IndexLayout: React.FC = ({ children }) => {
         ]}
       />
       <Header />
-      {shouldShowSideSocial && <SideSocial />}
+      <SideSocial />
       <LayoutMain>{children}</LayoutMain>
       <Footer />
     </LayoutRoot>

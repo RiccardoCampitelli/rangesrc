@@ -80,10 +80,15 @@ const Header: React.FC = () => {
         ) : (
           <>
             <Link to="/">Home</Link>
-            <Link mx={2} to="/shop">
+            <Link ml={2} to="/shop">
               Shop
             </Link>
-            <Link to="/about">About</Link>
+            <Link ml={2} to="/about">
+              About
+            </Link>
+            <Link ml={2} to="/contact">
+              Contact
+            </Link>
           </>
         )}
       </StyledHeader>
@@ -104,6 +109,9 @@ const Header: React.FC = () => {
         </Link>
         <Link onClick={closeMenu} my={2} to="/about">
           About
+        </Link>
+        <Link onClick={closeMenu} my={2} to="/contact">
+          Contact
         </Link>
       </SideNav>
     </>

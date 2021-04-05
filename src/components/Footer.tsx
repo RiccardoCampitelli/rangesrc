@@ -52,20 +52,6 @@ const Footer = () => {
     <>
       <Hr />
       <StyledFooter>
-        {shouldShowLinks && (
-          <P color="primary" textAlign="center">
-            Follow us!
-            <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
-              <Icon ml={2} icon={faInstagram} color="primary" />
-            </A>
-            <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
-              <Icon ml={2} icon={faSpotify} />
-            </A>
-            <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
-              <Icon ml={2} icon={faYoutube} />
-            </A>
-          </P>
-        )}
         <P fontSize={12} color="primary" textAlign="right" marginX={2}>
           Made with ♥️ by{' '}
           <A
