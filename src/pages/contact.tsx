@@ -76,7 +76,7 @@ const Contact = () => {
         <Title sticky fontSize={[1, 3, 4]}>
           CONTACT
         </Title>
-        <TextContainer mx={[4, 7]}>
+        <TextContainer mx={[4, 7]} my={2}>
           <P>For all enquires email allieverwantedmusic@gmail.com</P>
           <P>
             For everything else, come be apart of the Ranges family and connect

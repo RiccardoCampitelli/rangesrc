@@ -74,7 +74,7 @@ const About = () => {
         <Title sticky fontSize={[1, 3, 4]}>
           ABOUT
         </Title>
-        <TextContainer mx={[4, 7]}>
+        <TextContainer mx={[4, 7]} my={2}>
           <P>RANGES RC (RANGES RECORDS / RRC)</P>
           <P>
             Established in 2020, SAD SOB + CROSLEY make up the rap duo from
