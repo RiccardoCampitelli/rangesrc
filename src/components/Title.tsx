@@ -21,8 +21,8 @@ type H1Props = HTMLProps<HTMLHeadElement> &
   }
 
 const stickyStyles = css`
-  margin-top: -70vh;
-  margin-bottom: 70vh;
+  margin-top: -80vh;
+  margin-bottom: 80vh;
 `
 
 const Title: React.FC<H1Props> = styled.h1<{ sticky: boolean }>`

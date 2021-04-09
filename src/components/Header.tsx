@@ -16,6 +16,9 @@ const StyledHeader = styled.header<SpaceProps<AppTheme>>`
   align-items: center;
   justify-content: space-between;
 
+  padding-left: 1rem;
+  padding-right: 1rem;
+
   height: ${heights.header}px;
   background-color: transparent;
   color: ${colors.white};
@@ -98,20 +101,23 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <StyledHeader paddingX={[2, 3]}>
-        <div>
-          {isSmallOrMedium ? (
-            <Burger onClick={toggleIsOpen} />
-          ) : (
-            <>
-              <Link to="/">Home</Link>
-              <Link mx={2} to="/shop">
-                Shop
-              </Link>
-              <Link to="/about">About</Link>
-            </>
-          )}
-        </div>
+      <StyledHeader>
+        {isSmallOrMedium ? (
+          <Burger onClick={toggleIsOpen} />
+        ) : (
+          <div>
+            <Link to="/">Home</Link>
+            <Link ml={2} to="/shop">
+              Shop
+            </Link>
+            <Link ml={2} to="/about">
+              About
+            </Link>
+            <Link ml={2} to="/contact">
+              Contact
+            </Link>
+          </div>
+        )}
         <div
           role="button"
           onClick={handleCheckout}
@@ -139,6 +145,9 @@ const Header: React.FC = () => {
         </Link>
         <Link onClick={closeMenu} my={2} to="/about">
           About
+        </Link>
+        <Link onClick={closeMenu} my={2} to="/contact">
+          Contact
         </Link>
       </SideNav>
     </>

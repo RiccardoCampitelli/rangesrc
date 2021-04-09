@@ -4,8 +4,8 @@ import IndexLayout from 'src/layouts'
 import styled, { keyframes } from 'styled-components'
 import { AppTheme, getColor } from 'src/styles/theme'
 import { space, SpaceProps } from 'styled-system'
-import Landing from 'src/components/Landing'
 import { graphql, useStaticQuery } from 'gatsby'
+import Landing from 'src/components/Landing'
 import { Title } from 'src/components/Title'
 
 const enterAnimation = keyframes`
@@ -25,18 +25,19 @@ const TextContainer = styled.section<SpaceProps<AppTheme>>`
   flex-direction: column;
   flex: 1 1 auto;
   align-items: center;
-  animation: ${enterAnimation} 0.5s ease-in;
   color: ${getColor('primary')};
-  ${space};
+  animation: ${enterAnimation} 0.5s ease-in;
+  ${space}
 `
 
 const P = styled.p`
   text-align: center;
   width: 100%;
 `
+
 const query = graphql`
   query {
-    graffiti: file(relativePath: { eq: "graffiti.jpeg" }) {
+    canvas: file(relativePath: { eq: "canvas.jpeg" }) {
       childImageSharp {
         fluid(maxWidth: 500) {
           ...GatsbyImageSharpFluid
@@ -46,34 +47,25 @@ const query = graphql`
   }
 `
 
-const About = () => {
-  const { graffiti } = useStaticQuery(query)
+const Contact = () => {
+  const { canvas } = useStaticQuery(query)
 
   return (
     <IndexLayout>
       <Page>
-        <Landing image={graffiti.childImageSharp} />
+        <Landing image={canvas.childImageSharp} />
         <Title sticky fontSize={[1, 3, 4]}>
-          ABOUT
+          CONTACT
         </Title>
         <TextContainer mx={[4, 5, 7]} my={2}>
-          <P>RANGES RC (RANGES RECORDS / RRC)</P>
+          <P>For all enquires email allieverwantedmusic@gmail.com</P>
           <P>
-            Established in 2020, SAD SOB + CROSLEY make up the rap duo from
-            Naarm (Melbourne) Australia, with a sound built off biographical
-            music, where life, ethics, bonds, home, art and craftsmanship are
-            the pillars.
+            For everything else, come be apart of the Ranges family and connect
+            with us on instagram @ranges_rc
           </P>
           <P>
-            RRC forms the heart of SAD SOB + CROSLEY’s fully-independent, self
-            run operation allieverwantedmusic. Music made for us, sounds to live
-            by.
-          </P>
-          <P>
-            <i>
-              THIS IS ART, THIS IS MELBOURNE, RANGES IS A FAMILY, BLESS! - SOB +
-              CROS
-            </i>
+            Location: Wurundjeri Woiwurrung land, Naarm (Yarra Ranges,
+            Melbourne), Australia
           </P>
         </TextContainer>
       </Page>
@@ -81,4 +73,4 @@ const About = () => {
   )
 }
 
-export default About
+export default Contact

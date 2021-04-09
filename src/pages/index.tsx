@@ -6,12 +6,27 @@ import Page from 'src/components/Page'
 
 import { Title } from 'src/components/Title'
 import { SongList } from 'src/components/SongList'
+import { graphql, useStaticQuery } from 'gatsby'
+
+const query = graphql`
+  query {
+    cover: file(relativePath: { eq: "cover.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 500) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
 
 const IndexPage = () => {
+  const { cover } = useStaticQuery(query)
+
   return (
     <IndexLayout>
       <Page>
-        <Landing />
+        <Landing image={cover.childImageSharp} />
         <Title sticky fontSize={[1, 3, 4]}>
           RANGES RC
         </Title>
