@@ -2,29 +2,11 @@ import React from 'react'
 import Page from 'src/components/Page'
 import IndexLayout from 'src/layouts'
 import styled, { keyframes } from 'styled-components'
-import { AppTheme, getColor, getSpace } from 'src/styles/theme'
-import { layout, LayoutProps, space, SpaceProps } from 'styled-system'
+import { AppTheme, getColor } from 'src/styles/theme'
+import { space, SpaceProps } from 'styled-system'
 import Landing from 'src/components/Landing'
 import { graphql, useStaticQuery } from 'gatsby'
 import { Title } from 'src/components/Title'
-
-const Container = styled.div<SpaceProps<AppTheme> & LayoutProps<AppTheme>>`
-  color: white;
-  display: flex;
-  align-items: center;
-  margin-top: ${getSpace(6)};
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  ${space}
-  ${layout}
-`
-
-const H1 = styled.h1`
-  color: ${getColor('primary')};
-  margin-top: ${getSpace(3)};
-  margin-bottom: ${getSpace(5)};
-`
 
 const enterAnimation = keyframes`
   0% {
@@ -74,7 +56,7 @@ const About = () => {
         <Title sticky fontSize={[1, 3, 4]}>
           ABOUT
         </Title>
-        <TextContainer mx={[4, 7]} my={2}>
+        <TextContainer mx={[4, 5, 7]} my={2}>
           <P>RANGES RC (RANGES RECORDS / RRC)</P>
           <P>
             Established in 2020, SAD SOB + CROSLEY make up the rap duo from
