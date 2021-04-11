@@ -9,7 +9,7 @@ import {
   typography,
   TypographyProps
 } from 'styled-system'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { ContentWrapper } from '../SongList'
 
 const LineItem = styled.div<SpaceProps>`
@@ -37,6 +37,12 @@ const Text = styled.span<TypographyProps<AppTheme>>`
   font-weight: ${getFontWeight('bold')};
   text-transform: capitalize;
   ${typography}
+`
+
+const Link = styled(GatsbyLink)`
+  &:hover {
+    text-decoration: none;
+  }
 `
 
 const ProductImage: React.FC<Omit<
@@ -85,8 +91,8 @@ const ProductGrid = ({ products }: ProductGridProps) => {
         justifyContent="center"
         marginBottom={[5, 6]}
       >
-        {products.map(({ images, variants, handle }) => (
-          <LineItem marginX={[0, 2]}>
+        {products.map(({ images, variants, handle, id }) => (
+          <LineItem marginX={[0, 2]} key={id}>
             <Link to={`/product/${handle}`}>
               <Figure margin={4}>
                 <ProductImage

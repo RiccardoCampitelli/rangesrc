@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { graphql } from 'gatsby'
 import IndexLayout from 'src/layouts'
 import styled from 'styled-components'
@@ -42,6 +42,7 @@ const ProductImage: React.FC<Omit<
 >> = styled(Img)`
   ${space};
   ${layout};
+  object-fit: cover;
 `
 
 const Text = styled.p<TypographyProps<AppTheme>>`
@@ -65,9 +66,10 @@ const P = styled.p`
   color: ${getColor('primary')};
 `
 
-const Row = styled.div<FlexboxProps<AppTheme>>`
+const Row = styled.div<FlexboxProps<AppTheme> & SpaceProps<AppTheme>>`
   display: flex;
   ${flexbox}
+  ${space}
 `
 
 const ProductInfo = styled.div`
@@ -97,13 +99,22 @@ const Select = styled.select`
   }
 `
 
+const Warning = styled.p`
+  color: ${getColor('negative')};
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  height: 1rem;
+`
+
 const ProductPage = ({ data }: QueryData) => {
-  const { title, variants, description } = data.shopifyProduct
+  const { title, variants, description, shopifyId } = data.shopifyProduct
   const [variantIndex, setVariantIndex] = useState(0)
+  const [isAvailable, setIsAvailable] = useState<boolean>()
   const currentVariant = variants[variantIndex]
   const {
     cart: {
-      checkout: { lineItems }
+      checkout: { lineItems },
+      client
     }
   } = useCartContext()
 
@@ -115,13 +126,60 @@ const ProductPage = ({ data }: QueryData) => {
 
   const imageFluid = currentVariant.image.localFile.childImageSharp.fluid
 
+  useEffect(() => {
+    const fetchCurrent = async () => {
+      const productAvailableQty = async () => {
+        const isAvailableQuery = client.graphQLClient.query((root: any) => {
+          root.addConnection(
+            'products',
+            { args: { first: 10 } },
+            (product: any) => {
+              product.addConnection(
+                'variants',
+                { args: { first: 99 } },
+                (variant: any) => {
+                  variant.add('availableForSale')
+                }
+              )
+            }
+          )
+        })
+
+        const value = await client.graphQLClient.send(isAvailableQuery)
+        return value
+      }
+
+      const result = await productAvailableQty()
+
+      const products = result.data.products.edges
+
+      const fetchedProduct = products.find((node: any) => {
+        return node.node.id === shopifyId
+      })
+
+      const fetchedVariant = fetchedProduct.node.variants.edges.find(
+        v => v.node.id === currentVariant.shopifyId
+      )
+
+      setIsAvailable(fetchedVariant.node.availableForSale)
+    }
+
+    fetchCurrent()
+  }, [variantIndex])
+
+  const isCurrentVariantAvailable = isAvailable === true //! currentVariant.availableForSale
+
   return (
     <IndexLayout>
       <Layout>
         <Container marginTop={6} width={['100%', '80%']}>
-          <Row flexDirection={['column', 'row']}>
+          <Row
+            flexDirection={['column', 'column', 'column', 'row']}
+            justifyContent="center"
+            alignItems="center"
+          >
             <ProductImage
-              size={['100%', 500]}
+              size={['100%', '80%', 500]}
               marginX={[0, 2]}
               fluid={imageFluid}
             />
@@ -142,12 +200,16 @@ const ProductPage = ({ data }: QueryData) => {
                   ))}
                 </Select>
               </div>
-              <Row flexDirection="row">
+              <Warning>{isAvailable === false && '⚠️ Out of stock!'}</Warning>
+              <Row flexDirection="row" marginBottom={2}>
                 <Icon
                   mx={[3, 4]}
                   icon={faMinus}
-                  onClick={() => updateLineItems(currentVariant.shopifyId, -1)}
-                  color="white"
+                  onClick={() =>
+                    isCurrentVariantAvailable &&
+                    updateLineItems(currentVariant.shopifyId, -1)
+                  }
+                  color={!isCurrentVariantAvailable ? 'grey' : 'white'}
                 />
                 <Text>
                   {findLineItem(currentVariant.shopifyId)?.quantity ?? 0}
@@ -155,8 +217,11 @@ const ProductPage = ({ data }: QueryData) => {
                 <Icon
                   mx={[3, 4]}
                   icon={faPlus}
-                  onClick={() => updateLineItems(currentVariant.shopifyId, 1)}
-                  color="white"
+                  onClick={() =>
+                    isCurrentVariantAvailable &&
+                    updateLineItems(currentVariant.shopifyId, 1)
+                  }
+                  color={!isCurrentVariantAvailable ? 'grey' : 'white'}
                 />
               </Row>
               <P>{description}</P>
@@ -186,6 +251,9 @@ interface QueryData {
           localFile: {
             childImageSharp: GatsbyImageFluidProps
           }
+        }
+        product: {
+          id: string
         }
       }[]
     }
@@ -226,6 +294,9 @@ export const query = graphql`
               }
             }
           }
+        }
+        product {
+          id
         }
       }
     }

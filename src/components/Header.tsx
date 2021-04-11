@@ -81,7 +81,6 @@ const Label = styled.div`
 
 const Header: React.FC = () => {
   const { screenSize } = useScreenSize()
-  const goToCheckout = useGoToCheckout()
   const { cart } = useCartContext()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -94,10 +93,6 @@ const Header: React.FC = () => {
   const lineItems = cart.checkout?.lineItems
 
   const total = lineItems.reduce((acc, item) => item.quantity + acc, 0)
-
-  const handleCheckout = () => {
-    if (total > 0) goToCheckout()
-  }
 
   return (
     <>
@@ -118,20 +113,15 @@ const Header: React.FC = () => {
             </Link>
           </div>
         )}
-        <div
-          role="button"
-          onClick={handleCheckout}
-          onKeyDown={event => event.key === 'enter' && handleCheckout()}
-          tabIndex={-1}
-        >
+        <Link to="/checkout">
           <Icon icon={faShoppingCart} size="2x" color="white" />
           {total > 0 && <Label>{total}</Label>}
-        </div>
+        </Link>
       </StyledHeader>
 
       <SideNav isOpen={isOpen}>
         <Icon
-          marginLeft="auto"
+          ml="auto"
           icon={faTimes}
           size="2x"
           color="white"

@@ -44,7 +44,7 @@ const baseTheme = {
     primary: '#e7edf1',
     secondary: '#fa8f4d',
     positive: '#50b87e',
-    negative: '#cc3333',
+    negative: '#ffbe44',
     neutralDarker: '#293132',
     neutralDark: '#414549',
     neutralMidDark: '#85898b',
