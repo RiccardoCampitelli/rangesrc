@@ -39,6 +39,18 @@ module.exports = {
         display: 'swap'
       }
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `RangersRC`,
+        short_name: `RRC`,
+        start_url: `/`,
+        background_color: `#2b2b2b`,
+        theme_color: `fdc830`,
+        display: `standalone`,
+        icon: 'src/images/favicon.png'
+      }
+    },
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',
