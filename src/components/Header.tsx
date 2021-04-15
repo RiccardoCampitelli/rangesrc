@@ -95,7 +95,7 @@ const Header: React.FC = () => {
 
       <SideNav isOpen={isOpen}>
         <Icon
-          marginLeft="auto"
+          ml="auto"
           icon={faTimes}
           size="2x"
           color="white"

@@ -9,6 +9,8 @@ import {
   faSpotify,
   faYoutube
 } from '@fortawesome/free-brands-svg-icons'
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons'
+import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import { Icon } from './Icon'
 
 const enterAnimation = keyframes`
@@ -43,18 +45,27 @@ const A = styled.a`
   animation: ${enterAnimation} 0.5s ease-in;
 `
 
-const SideSocial = () => (
-  <AlignRight>
-    <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faSpotify} />
-    </A>
-    <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faInstagram} color="primary" />
-    </A>
-    <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faYoutube} />
-    </A>
-  </AlignRight>
-)
-
+const SideSocial = () => {
+  const { setIsOpen } = useNewsLetterContext()
+  return (
+    <AlignRight>
+      <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
+        <Icon mr={2} icon={faSpotify} />
+      </A>
+      <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
+        <Icon mr={2} icon={faInstagram} color="primary" />
+      </A>
+      <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
+        <Icon mr={2} icon={faYoutube} />
+      </A>
+      <Icon
+        onClick={() => setIsOpen(true)}
+        mr={2}
+        mt={2}
+        icon={faNewspaper}
+        color="primary"
+      />
+    </AlignRight>
+  )
+}
 export { SideSocial }

@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`
+})
+
 module.exports = {
   siteMetadata: {
     title: 'Ranges RC',
@@ -49,6 +53,12 @@ module.exports = {
         theme_color: `fdc830`,
         display: `standalone`,
         icon: 'src/images/favicon.png'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT
       }
     },
     `gatsby-plugin-styled-components`,

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { graphql, useStaticQuery } from 'gatsby'
 
@@ -7,7 +7,7 @@ import '../styles/normalize'
 
 import { Footer } from 'src/components/Footer'
 import { SideSocial } from 'src/components/SideSocial'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Newsletter } from 'src/components/Newsletter'
 import Header from '../components/Header'
 import LayoutRoot from '../components/LayoutRoot'
 import LayoutMain from '../components/LayoutMain'
@@ -51,6 +51,7 @@ const IndexLayout: React.FC = ({ children }) => {
           { name: 'keywords', content: siteMetadata.keywords }
         ]}
       />
+      <Newsletter />
       <Header />
       <SideSocial />
       <LayoutMain>{children}</LayoutMain>
