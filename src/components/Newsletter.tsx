@@ -1,10 +1,12 @@
-import React, { useRef } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { useTimeout } from 'src/hooks/useTimeout'
 import { getColor, getSpace } from 'src/styles/theme'
 import styled, { keyframes } from 'styled-components'
 // @ts-ignore
 import rainLoop from 'src/images/rain-loop.gif'
 import { useNewsLetterContext } from 'src/context/NewsletterContext'
+import addToMailchimp from 'gatsby-plugin-mailchimp'
+import { Tick } from './Tick'
 
 interface ModalProps {
   open: boolean
@@ -69,32 +71,116 @@ const Heading = styled.h3`
 const Input = styled.input`
   margin-top: ${getSpace(2)};
   margin-bottom: ${getSpace(2)};
+  padding: ${getSpace(1)};
+
+  border-radius: 5px;
+  border: 1px solid ${getColor('neutralDarker')};
+
+  &:focus {
+    outline: none;
+  }
 `
+
+const Button = styled.button`
+  margin-top: ${getSpace(2)};
+  margin-bottom: ${getSpace(2)};
+  padding: ${getSpace(1)};
+
+  cursor: pointer;
+  font-weight: bold;
+  /* border: none; */
+  border-top: 1px solid ${getColor('neutralDarker')};
+  border-right: 1px solid ${getColor('neutralDarker')};
+  border-bottom: 1px solid ${getColor('neutralDarker')};
+  border-left: 1px solid ${getColor('neutralDarker')};
+  margin-left: ${getSpace(1)};
+  border-radius: 5px;
+  /* background-color: ${getColor('neutralDark')}; */
+`
+
+interface MessageProps {
+  success?: boolean
+}
+
+const ErrorMessage = styled.p<MessageProps>`
+  min-height: 1rem;
+  color: ${props =>
+    props?.success ? getColor('positive')(props) : getColor('negative')(props)};
+`
+
+interface MailchimpResponse {
+  success: boolean
+}
 
 const Newsletter = () => {
   const modalContentRef = useRef<HTMLDivElement>(null)
   const { isOpen, setIsOpen } = useNewsLetterContext()
+  const [email, setEmail] = useState('')
+  const [
+    mailchimpResponse,
+    setMailchimpResponse
+  ] = useState<MailchimpResponse | null>(null)
 
   useTimeout(() => {
     setIsOpen(true)
   }, 1000)
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // const result = addToMailchimp()
+    event.preventDefault()
+
+    const result = await addToMailchimp(email)
+
+    console.log({ result })
+
+    if (result.result === 'success') {
+      setMailchimpResponse({
+        success: true
+      })
+    }
+
+    if (result.result === 'error') {
+      setMailchimpResponse({
+        success: false
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (mailchimpResponse?.success)
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 3000)
+  }, [mailchimpResponse])
+
   return (
     <Modal
       open={isOpen}
-      onClick={evt => {
-        evt.stopPropagation()
+      onClick={() => {
         setIsOpen(false)
       }}
     >
-      <ModalContent ref={modalContentRef}>
+      <ModalContent
+        ref={modalContentRef}
+        onClick={evt => evt.stopPropagation()}
+      >
         <Heading>IT'S RANGES SEASON! </Heading>
         <GifImage src={rainLoop} alt="rain-loop gif" />
         <Heading>SIGN UP TO GET THE FULL SCOOP</Heading>
-        <Input type="email" placeholder="email@address.com" />
-        <button type="submit" onClick={() => setIsOpen(false)}>
-          Join!
-        </button>
+        <form onSubmit={handleSubmit}>
+          <Input
+            value={email}
+            onChange={evt => setEmail(evt.target.value)}
+            type="email"
+            placeholder="email@address.com"
+          />
+          <Button type="submit">Join!</Button>
+        </form>
+        <ErrorMessage success={mailchimpResponse?.success}>
+          {mailchimpResponse?.success === false &&
+            'Something went wrong setting this up 😢'}
+          {mailchimpResponse?.success === true && 'All good ✌️'}
+        </ErrorMessage>
       </ModalContent>
     </Modal>
   )
