@@ -11,8 +11,6 @@ import { CheckoutResource } from 'shopify-buy'
 
 import Client from 'shopify-buy/index.unoptimized.umd'
 
-// console.log({ Client2 })
-
 const SHOPIFY_CHECKOUT_STORAGE_KEY = 'shopify_checkout_id'
 
 const cartReducer: Reducer<Cart, Action> = (state, action) => {
@@ -29,8 +27,6 @@ const client: Client = Client.buildClient({
   storefrontAccessToken: process.env.STOREFRONT_API_ACCESS_TOKEN ?? '',
   domain: `${process.env.SHOP_NAME}.myshopify.com`
 })
-
-console.log({ client })
 
 function createNewCheckout(cli: Client.Client) {
   return cli.checkout.create()

@@ -46,7 +46,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-shopify',
       options: {
-        shopName: 'rangesrc',
+        shopName: 'ranges-rc',
         accessToken: process.env.STOREFRONT_API_ACCESS_TOKEN,
         verbose: true,
         shopifyQueries: {

@@ -36,6 +36,7 @@ const Text = styled.span<TypographyProps<AppTheme>>`
   color: ${getColor('primary')};
   font-weight: ${getFontWeight('bold')};
   text-transform: capitalize;
+  user-select: none;
   ${typography}
 `
 

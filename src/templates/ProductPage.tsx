@@ -23,6 +23,7 @@ const ProductTitle = styled.h1<TypographyProps<AppTheme>>`
   width: 100%;
   text-align: center;
   margin-top: ${getSpace(3)};
+  user-select: none;
   ${typography};
 `
 
@@ -64,6 +65,11 @@ const Layout = styled.div`
 
 const P = styled.p`
   color: ${getColor('primary')};
+  text-align: center;
+
+  & p > strong {
+    color: ${getColor('primary')};
+  }
 `
 
 const Row = styled.div<FlexboxProps<AppTheme> & SpaceProps<AppTheme>>`
@@ -107,7 +113,7 @@ const Warning = styled.p`
 `
 
 const ProductPage = ({ data }: QueryData) => {
-  const { title, variants, description, shopifyId } = data.shopifyProduct
+  const { title, variants, descriptionHtml, shopifyId } = data.shopifyProduct
   const [variantIndex, setVariantIndex] = useState(0)
   const [isAvailable, setIsAvailable] = useState<boolean>()
   const currentVariant = variants[variantIndex]
@@ -167,21 +173,22 @@ const ProductPage = ({ data }: QueryData) => {
     fetchCurrent()
   }, [variantIndex])
 
-  const isCurrentVariantAvailable = isAvailable === true //! currentVariant.availableForSale
+  const isCurrentVariantAvailable = isAvailable === true
 
   return (
     <IndexLayout>
       <Layout>
         <Container marginTop={6} width={['100%', '80%']}>
           <Row
-            flexDirection={['column', 'column', 'column', 'row']}
+            flexDirection="column"
             justifyContent="center"
             alignItems="center"
           >
             <ProductImage
-              size={['100%', '80%', 500]}
+              size={['100%', '80%', '100%']}
               marginX={[0, 2]}
               fluid={imageFluid}
+              width={['100%', '80%', '50%']}
             />
             <ProductInfo>
               <ProductTitle fontSize={[1, 2]}>{title}</ProductTitle>
@@ -224,7 +231,7 @@ const ProductPage = ({ data }: QueryData) => {
                   color={!isCurrentVariantAvailable ? 'grey' : 'white'}
                 />
               </Row>
-              <P>{description}</P>
+              <P dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
             </ProductInfo>
           </Row>
         </Container>
@@ -240,6 +247,7 @@ interface QueryData {
       title: string
       handle: string
       description: string
+      descriptionHtml: string
       shopifyId: string
       variants: {
         id: string
