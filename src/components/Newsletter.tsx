@@ -6,7 +6,12 @@ import styled, { keyframes } from 'styled-components'
 import rainLoop from 'src/images/rain-loop.gif'
 import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import addToMailchimp from 'gatsby-plugin-mailchimp'
-import { Tick } from './Tick'
+import {
+  faCross,
+  faTicketAlt,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons'
+import { Icon } from './Icon'
 
 interface ModalProps {
   open: boolean
@@ -44,6 +49,7 @@ const fadeIn = keyframes`
 const ModalContent = styled.div`
   width: 500px;
   height: 500px;
+  position: relative;
 
   display: flex;
   flex-direction: column;
@@ -98,6 +104,24 @@ const Button = styled.button`
   /* background-color: ${getColor('neutralDark')}; */
 `
 
+const CloseButton = styled.button`
+  position: absolute;
+
+  top: -5px;
+  right: -5px;
+
+  background-color: white;
+
+  border-radius: 50%;
+  border: 1px solid white;
+  padding: 1rem;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 interface MessageProps {
   success?: boolean
 }
@@ -112,9 +136,22 @@ interface MailchimpResponse {
   success: boolean
 }
 
+const MS_PER_DAY = 1000 * 60 * 60 * 24
+
+function dateDiffInDays(a: Date, b: Date) {
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+
+  return Math.floor((utc2 - utc1) / MS_PER_DAY)
+}
+
+const INITIAL_DELAY = 10000
+
+const SHOW_NEWSLETTER_AFTER_DAYS = 7
+
 const Newsletter = () => {
   const modalContentRef = useRef<HTMLDivElement>(null)
-  const { isOpen, setIsOpen } = useNewsLetterContext()
+  const { newsLetterState, setNewsLetterState } = useNewsLetterContext()
   const [email, setEmail] = useState('')
   const [
     mailchimpResponse,
@@ -122,8 +159,26 @@ const Newsletter = () => {
   ] = useState<MailchimpResponse | null>(null)
 
   useTimeout(() => {
-    setIsOpen(true)
-  }, 1000)
+    const now = new Date()
+    if (newsLetterState.updatedAt == null) {
+      setNewsLetterState({
+        value: true,
+        updatedAt: now.toISOString()
+      })
+      return
+    }
+
+    const differenceInDays = dateDiffInDays(
+      new Date(newsLetterState.updatedAt),
+      now
+    )
+
+    if (differenceInDays > SHOW_NEWSLETTER_AFTER_DAYS)
+      setNewsLetterState({
+        value: true,
+        updatedAt: now
+      })
+  }, INITIAL_DELAY)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // const result = addToMailchimp()
@@ -149,21 +204,28 @@ const Newsletter = () => {
   useEffect(() => {
     if (mailchimpResponse?.success)
       setTimeout(() => {
-        setIsOpen(false)
+        setNewsLetterState((curr: any) => ({ ...curr, value: false }))
       }, 3000)
   }, [mailchimpResponse])
 
   return (
     <Modal
-      open={isOpen}
+      open={newsLetterState.value}
       onClick={() => {
-        setIsOpen(false)
+        setNewsLetterState((curr: any) => ({ ...curr, value: false }))
       }}
     >
       <ModalContent
         ref={modalContentRef}
         onClick={evt => evt.stopPropagation()}
       >
+        <CloseButton
+          onClick={() =>
+            setNewsLetterState((curr: any) => ({ ...curr, value: false }))
+          }
+        >
+          <Icon icon={faTimes} />
+        </CloseButton>
         <Heading>IT'S RANGES SEASON! </Heading>
         <GifImage src={rainLoop} alt="rain-loop gif" />
         <Heading>SIGN UP TO GET THE FULL SCOOP</Heading>

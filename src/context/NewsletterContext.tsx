@@ -1,29 +1,43 @@
 import React, { createContext, useContext, useState } from 'react'
+import { useLocalStorage } from 'src/hooks/useLocalstorage'
 
 const DEFAULT_VALUE = {
-  isOpen: false,
-  setIsOpen: (val: boolean) => {}
+  newsLetterState: { value: false, updatedAt: null },
+  setNewsLetterState: (val: boolean) => {}
 }
 
 interface NewsletterContextValue {
-  isOpen: boolean
-  setIsOpen: any
+  newsLetterState: NewsLetterState
+  setNewsLetterState: any
 }
 
 const NewsletterContext = createContext<NewsletterContextValue>(DEFAULT_VALUE)
 
 const useNewsLetterContext = () => useContext(NewsletterContext)
 
-const NewsLetterContextProvider: React.FC = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false)
+interface NewsLetterState {
+  value: boolean
+  updatedAt: string | null
+}
 
-  const value = {
-    isOpen,
-    setIsOpen
+const INITIAL_STATE: NewsLetterState = {
+  value: false,
+  updatedAt: null
+}
+
+const NewsLetterContextProvider: React.FC = ({ children }) => {
+  const [newsLetterState, setNewsLetterState] = useLocalStorage(
+    'newsletter',
+    INITIAL_STATE
+  )
+
+  const contextValue = {
+    newsLetterState,
+    setNewsLetterState
   }
 
   return (
-    <NewsletterContext.Provider value={value}>
+    <NewsletterContext.Provider value={contextValue}>
       {children}
     </NewsletterContext.Provider>
   )

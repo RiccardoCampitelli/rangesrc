@@ -42,24 +42,29 @@ const A = styled.a`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`
+
+const AnimatedIcon = styled(Icon)`
   animation: ${enterAnimation} 0.5s ease-in;
 `
 
 const SideSocial = () => {
-  const { setIsOpen } = useNewsLetterContext()
+  const { setNewsLetterState } = useNewsLetterContext()
   return (
     <AlignRight>
       <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
-        <Icon mr={2} icon={faSpotify} />
+        <AnimatedIcon mr={2} icon={faSpotify} />
       </A>
       <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
-        <Icon mr={2} icon={faInstagram} color="primary" />
+        <AnimatedIcon mr={2} icon={faInstagram} color="primary" />
       </A>
       <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
-        <Icon mr={2} icon={faYoutube} />
+        <AnimatedIcon mr={2} icon={faYoutube} />
       </A>
-      <Icon
-        onClick={() => setIsOpen(true)}
+      <AnimatedIcon
+        onClick={() =>
+          setNewsLetterState((curr: any) => ({ ...curr, value: true }))
+        }
         mr={2}
         mt={2}
         icon={faNewspaper}
