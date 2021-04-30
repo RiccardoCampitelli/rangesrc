@@ -6,11 +6,7 @@ import styled, { keyframes } from 'styled-components'
 import rainLoop from 'src/images/rain-loop.gif'
 import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import addToMailchimp from 'gatsby-plugin-mailchimp'
-import {
-  faCross,
-  faTicketAlt,
-  faTimes
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Icon } from './Icon'
 
 interface ModalProps {
@@ -94,14 +90,12 @@ const Button = styled.button`
 
   cursor: pointer;
   font-weight: bold;
-  /* border: none; */
   border-top: 1px solid ${getColor('neutralDarker')};
   border-right: 1px solid ${getColor('neutralDarker')};
   border-bottom: 1px solid ${getColor('neutralDarker')};
   border-left: 1px solid ${getColor('neutralDarker')};
   margin-left: ${getSpace(1)};
   border-radius: 5px;
-  /* background-color: ${getColor('neutralDark')}; */
 `
 
 const CloseButton = styled.button`
@@ -181,12 +175,9 @@ const Newsletter = () => {
   }, INITIAL_DELAY)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // const result = addToMailchimp()
     event.preventDefault()
 
     const result = await addToMailchimp(email)
-
-    console.log({ result })
 
     if (result.result === 'success') {
       setMailchimpResponse({
