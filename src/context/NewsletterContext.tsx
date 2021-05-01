@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
-import { useLocalStorage } from 'src/hooks/useLocalstorage'
+import React, { createContext, useContext } from 'react'
+import { useLocalStorage } from 'src/hooks/useLocalStorage'
 
 const DEFAULT_VALUE = {
   newsLetterState: { value: false, updatedAt: null },
