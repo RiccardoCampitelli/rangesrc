@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env`
 })
 
 module.exports = {
@@ -323,6 +323,24 @@ module.exports = {
             }
           `
         }
+      }
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `RangersRC`,
+        short_name: `RRC`,
+        start_url: `/`,
+        background_color: `#2b2b2b`,
+        theme_color: `fdc830`,
+        display: `standalone`,
+        icon: 'src/images/favicon.png'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT
       }
     },
     `gatsby-plugin-styled-components`,

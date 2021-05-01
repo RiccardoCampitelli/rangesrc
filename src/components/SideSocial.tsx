@@ -9,6 +9,8 @@ import {
   faSpotify,
   faYoutube
 } from '@fortawesome/free-brands-svg-icons'
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons'
+import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import { Icon } from './Icon'
 
 const enterAnimation = keyframes`
@@ -40,21 +42,35 @@ const A = styled.a`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`
+
+const AnimatedIcon = styled(Icon)`
   animation: ${enterAnimation} 0.5s ease-in;
 `
 
-const SideSocial = () => (
-  <AlignRight>
-    <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faSpotify} />
-    </A>
-    <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faInstagram} color="primary" />
-    </A>
-    <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
-      <Icon mr={2} icon={faYoutube} />
-    </A>
-  </AlignRight>
-)
-
+const SideSocial = () => {
+  const { setNewsLetterState } = useNewsLetterContext()
+  return (
+    <AlignRight>
+      <A href={SocialContacts.spotify} target="_blank" rel="noreferrer">
+        <AnimatedIcon mr={2} icon={faSpotify} />
+      </A>
+      <A href={SocialContacts.instagram} target="_blank" rel="noreferrer">
+        <AnimatedIcon mr={2} icon={faInstagram} color="primary" />
+      </A>
+      <A href={SocialContacts.youtube} target="_blank" rel="noreferrer">
+        <AnimatedIcon mr={2} icon={faYoutube} />
+      </A>
+      <AnimatedIcon
+        onClick={() =>
+          setNewsLetterState((curr: any) => ({ ...curr, value: true }))
+        }
+        mr={2}
+        mt={2}
+        icon={faNewspaper}
+        color="primary"
+      />
+    </AlignRight>
+  )
+}
 export { SideSocial }

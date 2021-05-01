@@ -17,7 +17,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,md}\"",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "start": "npm run dev",
-    "test": "npm run type-check && npm run lint",
+    "test": "npm run type-checak && npm run lint",
     "type-check": "tsc"
   },
   "engines": {
@@ -39,6 +39,8 @@
     "gatsby-plugin-advanced-sitemap": "^1.6.0",
     "gatsby-plugin-canonical-urls": "^2.1.0",
     "gatsby-plugin-google-fonts": "^1.0.1",
+    "gatsby-plugin-mailchimp": "^5.2.2",
+    "gatsby-plugin-manifest": "^2.3.1",
     "gatsby-plugin-react-helmet": "^3.1.0",
     "gatsby-plugin-robots-txt": "^1.5.5",
     "gatsby-plugin-sharp": "^2.2.1",
