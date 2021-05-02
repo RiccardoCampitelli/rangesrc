@@ -104,6 +104,10 @@ const CloseButton = styled.button`
   top: -5px;
   right: -5px;
 
+  &:focus {
+    outline: none;
+  }
+
   background-color: white;
 
   border-radius: 50%;
@@ -114,6 +118,7 @@ const CloseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `
 
 interface MessageProps {
@@ -125,7 +130,6 @@ const ErrorMessage = styled.p<MessageProps>`
   color: ${props =>
     props?.success ? getColor('positive')(props) : getColor('negative')(props)};
 `
-
 interface MailchimpResponse {
   success: boolean
 }
@@ -232,7 +236,8 @@ const Newsletter = () => {
         <ErrorMessage success={mailchimpResponse?.success}>
           {mailchimpResponse?.success === false &&
             'Something went wrong setting this up 😢'}
-          {mailchimpResponse?.success === true && 'All good ✌️'}
+          {mailchimpResponse?.success === true &&
+            `We've added you to our mailing list ✌️`}
         </ErrorMessage>
       </ModalContent>
     </Modal>
