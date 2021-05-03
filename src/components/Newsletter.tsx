@@ -55,7 +55,7 @@ const ModalContent = styled.div`
 
   border-radius: 10px;
 
-  background-color: ${getColor('primary')};
+  background-color: white;
 
   animation: ${fadeIn} 0.5s ease-in;
 `
