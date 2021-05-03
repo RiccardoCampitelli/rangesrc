@@ -25,7 +25,7 @@ const cartReducer: Reducer<Cart, Action> = (state, action) => {
 
 const client: Client = Client.buildClient({
   storefrontAccessToken: process.env.STOREFRONT_API_ACCESS_TOKEN ?? '',
-  domain: `${process.env.SHOP_NAME}.myshopify.com`
+  domain: `ranges-rc.myshopify.com`
 })
 
 function createNewCheckout(cli: Client.Client) {
