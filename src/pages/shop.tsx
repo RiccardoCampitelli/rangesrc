@@ -13,6 +13,7 @@ export const query = graphql`
         shopifyId
         id
         handle
+        title
         variants {
           id
           shopifyId
@@ -43,6 +44,7 @@ interface QueryData {
           shopifyId: string
           id: string
           handle: string
+          title: string
           variants: [
             {
               id: string

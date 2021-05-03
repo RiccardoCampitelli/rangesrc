@@ -4,11 +4,14 @@ import { ThemeProvider } from 'styled-components'
 import { darkTheme } from 'src/styles/theme'
 import { CartContextProvider } from 'src/context/CartContext'
 import { NewsLetterContextProvider } from 'src/context/NewsletterContext'
+import { ThemeContextProvider } from 'src/context/ThemeContext'
 
 export const wrapRootElement = ({ element }) => (
-  <ThemeProvider theme={darkTheme}>
+  // <ThemeProvider theme={darkTheme}>
+  <ThemeContextProvider>
     <CartContextProvider>
       <NewsLetterContextProvider>{element}</NewsLetterContextProvider>
     </CartContextProvider>
-  </ThemeProvider>
+  </ThemeContextProvider>
+  // </ThemeProvider>
 )

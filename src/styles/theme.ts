@@ -46,7 +46,7 @@ const darkBase = {
     positive: '#50b87e',
     negative: '#ffbe44',
     neutralDarker: '#293132',
-    neutralDark: '#414549',
+    neutralDark: '#111111',
     neutralMidDark: '#85898b',
     neutralMid: '#cacdcd',
     neutralMidLight: '#d9dbdb',
@@ -61,11 +61,11 @@ const darkBase = {
 const lightBase = {
   colors: {
     secondary: '#e7edf1',
-    primary: '#fa8f4d',
+    primary: '#111111',
     positive: '#50b87e',
     negative: '#ffbe44',
     neutralDarker: '#293132',
-    neutralDark: '#414549',
+    neutralDark: '#e7edf1',
     neutralMidDark: '#85898b',
     neutralMid: '#cacdcd',
     neutralMidLight: '#d9dbdb',
@@ -129,9 +129,14 @@ const darkTheme: Partial<AppTheme> = {
   ...sharedTheme
 }
 
+const lightTheme: Partial<AppTheme> = {
+  ...lightBase,
+  ...sharedTheme
+}
+
 // export default theme as AppTheme
 
-export { darkTheme }
+export { darkTheme, lightTheme }
 
 export const getColor = (color: keyof AppTheme['colors']) => (
   p: ThemedStyledProps<unknown, DefaultTheme>

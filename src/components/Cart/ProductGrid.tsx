@@ -58,6 +58,7 @@ interface Product {
   shopifyId: string
   id: string
   handle: string
+  title: string
   variants: [
     {
       id: string
@@ -92,7 +93,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
         justifyContent="center"
         marginBottom={[5, 6]}
       >
-        {products.map(({ images, variants, handle, id }) => (
+        {products.map(({ images, variants, handle, id, title }) => (
           <LineItem marginX={[0, 2]} key={id}>
             <Link to={`/product/${handle}`}>
               <Figure margin={4}>
@@ -103,7 +104,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
                 />
               </Figure>
               <ProductFooter>
-                <Text fontSize={1}>{handle}</Text>
+                <Text fontSize={1}>{title}</Text>
                 <Text>${variants[0].price}</Text>
               </ProductFooter>
             </Link>
