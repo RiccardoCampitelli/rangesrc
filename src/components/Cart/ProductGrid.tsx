@@ -84,7 +84,7 @@ interface ProductGridProps {
 const ProductGrid = ({ products }: ProductGridProps) => {
   return (
     <ContentWrapper flexDirection="column" paddingTop={5}>
-      <Text fontSize={2}>Shop</Text>
+      <Text fontSize={2}>SHOP</Text>
       <ContentWrapper
         flexWrap="wrap"
         flexDirection={['column', 'row']}

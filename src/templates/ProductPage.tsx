@@ -175,6 +175,8 @@ const ProductPage = ({ data }: QueryData) => {
 
   const isCurrentVariantAvailable = isAvailable === true
 
+  const moreThanOneVariant = variants.length > 1
+
   return (
     <IndexLayout>
       <Layout>
@@ -194,18 +196,20 @@ const ProductPage = ({ data }: QueryData) => {
               <ProductTitle fontSize={[1, 2]}>{title}</ProductTitle>
               <Text fontSize={1}>${currentVariant.price}</Text>
               <div>
-                <Select
-                  value={variantIndex}
-                  onChange={evt =>
-                    setVariantIndex(parseInt(evt.target.value, 10))
-                  }
-                >
-                  {variants.map((variant, idx) => (
-                    <option key={variant.id} value={idx}>
-                      {variant.title}
-                    </option>
-                  ))}
-                </Select>
+                {moreThanOneVariant && (
+                  <Select
+                    value={variantIndex}
+                    onChange={evt =>
+                      setVariantIndex(parseInt(evt.target.value, 10))
+                    }
+                  >
+                    {variants.map((variant, idx) => (
+                      <option key={variant.id} value={idx}>
+                        {variant.title}
+                      </option>
+                    ))}
+                  </Select>
+                )}
               </div>
               <Warning>{isAvailable === false && '⚠️ Out of stock!'}</Warning>
               <Row flexDirection="row" marginBottom={2}>

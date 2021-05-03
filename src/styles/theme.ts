@@ -39,10 +39,29 @@ export interface AppTheme extends Required<Theme<TLengthStyledSystem>> {
   }
 }
 
-const baseTheme = {
+const darkBase = {
   colors: {
     primary: '#e7edf1',
     secondary: '#fa8f4d',
+    positive: '#50b87e',
+    negative: '#ffbe44',
+    neutralDarker: '#293132',
+    neutralDark: '#414549',
+    neutralMidDark: '#85898b',
+    neutralMid: '#cacdcd',
+    neutralMidLight: '#d9dbdb',
+    neutralLight: '#eaeded',
+    neutralLightest: '#fff',
+    brandYoutube: '#ff0101',
+    brandSpotify: '#1DB954'
+  },
+  fonts: {}
+}
+
+const lightBase = {
+  colors: {
+    secondary: '#e7edf1',
+    primary: '#fa8f4d',
     positive: '#50b87e',
     negative: '#ffbe44',
     neutralDarker: '#293132',
@@ -65,8 +84,7 @@ breakpoints.md = breakpoints[1]
 breakpoints.lg = breakpoints[2]
 breakpoints.xl = breakpoints[3]
 
-const theme: Partial<AppTheme> = {
-  ...baseTheme,
+const sharedTheme = {
   space: [0, '0.5rem', '0.75rem', '1rem', '2rem', '4rem', '8rem', '16rem'],
 
   sizes: [
@@ -106,7 +124,14 @@ const theme: Partial<AppTheme> = {
   buttonRadius: '5px'
 }
 
-export default theme as AppTheme
+const darkTheme: Partial<AppTheme> = {
+  ...darkBase,
+  ...sharedTheme
+}
+
+// export default theme as AppTheme
+
+export { darkTheme }
 
 export const getColor = (color: keyof AppTheme['colors']) => (
   p: ThemedStyledProps<unknown, DefaultTheme>
