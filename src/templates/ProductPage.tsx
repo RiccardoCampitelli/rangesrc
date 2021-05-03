@@ -186,7 +186,7 @@ const ProductPage = ({ data }: QueryData) => {
     <IndexLayout>
       <Modal open={productModalOpen} onClick={() => setProductModalOpen(false)}>
         <ModalContent
-          width={['100%', '100%', '70%']}
+          width={['100%', '100%', '70%', '50%']}
           onClick={() => setProductModalOpen(false)}
         >
           <ProductImage
