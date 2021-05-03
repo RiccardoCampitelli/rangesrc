@@ -17,6 +17,7 @@ import {
 import { useCartContext, useLineItemUpdate } from 'src/context/CartContext'
 import { Icon } from 'src/components/Icon'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Modal, ModalContent } from 'src/components/Modal'
 
 const ProductTitle = styled.h1<TypographyProps<AppTheme>>`
   color: ${getColor('primary')};
@@ -33,12 +34,12 @@ const Container = styled.div<SpaceProps<AppTheme> & LayoutProps<AppTheme>>`
   ${space}
   ${layout}
 `
-type SongImageProps = GatsbyImageFluidProps &
+type ProductImageProps = GatsbyImageFluidProps &
   SpaceProps<AppTheme> &
   LayoutProps<AppTheme>
 
 const ProductImage: React.FC<Omit<
-  SongImageProps,
+  ProductImageProps,
   'propTypes' | 'ref'
 >> = styled(Img)`
   ${space};
@@ -72,10 +73,13 @@ const P = styled.p`
   }
 `
 
-const Row = styled.div<FlexboxProps<AppTheme> & SpaceProps<AppTheme>>`
+const Row = styled.div<
+  FlexboxProps<AppTheme> & SpaceProps<AppTheme> & LayoutProps<AppTheme>
+>`
   display: flex;
   ${flexbox}
   ${space}
+  ${layout}
 `
 
 const ProductInfo = styled.div`
@@ -116,6 +120,7 @@ const ProductPage = ({ data }: QueryData) => {
   const { title, variants, descriptionHtml, shopifyId } = data.shopifyProduct
   const [variantIndex, setVariantIndex] = useState(0)
   const [isAvailable, setIsAvailable] = useState<boolean>()
+  const [productModalOpen, setProductModalOpen] = useState(false)
   const currentVariant = variants[variantIndex]
   const {
     cart: {
@@ -179,6 +184,19 @@ const ProductPage = ({ data }: QueryData) => {
 
   return (
     <IndexLayout>
+      <Modal open={productModalOpen} onClick={() => setProductModalOpen(false)}>
+        <ModalContent
+          width={['100%', '100%', '70%']}
+          onClick={() => setProductModalOpen(false)}
+        >
+          <ProductImage
+            size={['90%']}
+            marginX={[0, 2]}
+            fluid={imageFluid}
+            width={['90%']}
+          />
+        </ModalContent>
+      </Modal>
       <Layout>
         <Container marginTop={6} width={['100%', '80%']}>
           <Row
@@ -186,12 +204,18 @@ const ProductPage = ({ data }: QueryData) => {
             justifyContent="center"
             alignItems="center"
           >
-            <ProductImage
-              size={['100%', '80%', '100%']}
-              marginX={[0, 2]}
-              fluid={imageFluid}
-              width={['100%', '80%', '50%']}
-            />
+            <Row
+              width="100%"
+              justifyContent="center"
+              onClick={() => setProductModalOpen(true)}
+            >
+              <ProductImage
+                size={['100%', '80%', '100%']}
+                marginX={[0, 2]}
+                fluid={imageFluid}
+                width={['100%', '80%', '50%']}
+              />
+            </Row>
             <ProductInfo>
               <ProductTitle fontSize={[1, 2]}>{title}</ProductTitle>
               <Text fontSize={1}>${currentVariant.price}</Text>

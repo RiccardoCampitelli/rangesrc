@@ -8,57 +8,58 @@ import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import addToMailchimp from 'gatsby-plugin-mailchimp'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Icon } from './Icon'
+import { Modal, ModalContent } from './Modal'
 
-interface ModalProps {
-  open: boolean
-}
+// interface ModalProps {
+//   open: boolean
+// }
 
-const Modal = styled.div<ModalProps>`
-  display: ${props => (props.open ? 'flex' : 'none')};
-  flex: 1 1 auto;
+// const Modal = styled.div<ModalProps>`
+//   display: ${props => (props.open ? 'flex' : 'none')};
+//   flex: 1 1 auto;
 
-  align-items: center;
-  justify-content: center;
+//   align-items: center;
+//   justify-content: center;
 
-  position: fixed;
-  z-index: 101;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-`
+//   position: fixed;
+//   z-index: 101;
+//   left: 0;
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   overflow: auto;
+//   background-color: rgb(0, 0, 0);
+//   background-color: rgba(0, 0, 0, 0.4);
+// `
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-`
+// const fadeIn = keyframes`
+//   from {
+//     opacity: 0;
+//     transform: translateY(10px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0px);
+//   }
+// `
 
-const ModalContent = styled.div`
-  width: 500px;
-  height: 500px;
-  position: relative;
+// const ModalContent = styled.div`
+//   width: 500px;
+//   height: 500px;
+//   position: relative;
 
-  display: flex;
-  flex-direction: column;
+//   display: flex;
+//   flex-direction: column;
 
-  align-items: center;
-  justify-content: space-evenly;
+//   align-items: center;
+//   justify-content: space-evenly;
 
-  border-radius: 10px;
+//   border-radius: 10px;
 
-  background-color: white;
+//   background-color: white;
 
-  animation: ${fadeIn} 0.5s ease-in;
-`
+//   animation: ${fadeIn} 0.5s ease-in;
+// `
 
 const GifImage = styled.img`
   height: 200px;
@@ -148,7 +149,7 @@ const INITIAL_DELAY = 10000
 const SHOW_NEWSLETTER_AFTER_DAYS = 7
 
 const Newsletter = () => {
-  const modalContentRef = useRef<HTMLDivElement>(null)
+  // const modalContentRef = useRef<HTMLDivElement>(null)
   const { newsLetterState, setNewsLetterState } = useNewsLetterContext()
   const [email, setEmail] = useState('')
   const [
@@ -211,16 +212,19 @@ const Newsletter = () => {
       }}
     >
       <ModalContent
-        ref={modalContentRef}
-        onClick={evt => evt.stopPropagation()}
+        onClick={() =>
+          setNewsLetterState((curr: any) => ({ ...curr, value: false }))
+        }
+        height="500px"
+        width="500px"
       >
-        <CloseButton
-          onClick={() =>
-            setNewsLetterState((curr: any) => ({ ...curr, value: false }))
-          }
+        {/* <CloseButton
+        onClick={() =>
+          setNewsLetterState((curr: any) => ({ ...curr, value: false }))
+        }
         >
-          <Icon icon={faTimes} />
-        </CloseButton>
+        <Icon icon={faTimes} />
+      </CloseButton> */}
         <Heading>IT'S RANGES SEASON! </Heading>
         <GifImage src={rainLoop} alt="rain-loop gif" />
         <Heading>SIGN UP TO GET THE FULL SCOOP</Heading>
