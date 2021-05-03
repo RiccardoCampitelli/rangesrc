@@ -24,7 +24,7 @@ const cartReducer: Reducer<Cart, Action> = (state, action) => {
 }
 
 const client: Client = Client.buildClient({
-  storefrontAccessToken: process.env.STOREFRONT_API_ACCESS_TOKEN ?? '',
+  storefrontAccessToken: process.env.GATSBY_STOREFRONT_API_ACCESS_TOKEN ?? '',
   domain: `ranges-rc.myshopify.com`
 })
 
