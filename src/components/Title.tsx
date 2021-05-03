@@ -26,11 +26,12 @@ const stickyStyles = css`
 `
 
 const Title: React.FC<H1Props> = styled.h1<{ sticky: boolean }>`
-  position: sticky;
+  position: absolute;
   font-family: 'Passion One';
   font-weight: 900;
   letter-spacing: ${getLetterSpacing('tracked')};
-  top: 0;
+  top: 12%;
+  width: 100%;
   ${props => (props.sticky === true ? stickyStyles : undefined)}
   text-align: center;
   color: ${getColor('primary')};

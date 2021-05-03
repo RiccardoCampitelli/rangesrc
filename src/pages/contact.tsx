@@ -54,9 +54,7 @@ const Contact = () => {
     <IndexLayout>
       <Page>
         <Landing image={canvas.childImageSharp} />
-        <Title sticky fontSize={[1, 3, 4]}>
-          CONTACT
-        </Title>
+        <Title fontSize={[1, 3, 4]}>CONTACT</Title>
         <TextContainer mx={[4, 5, 7]} my={2}>
           <P>For all enquires email allieverwantedmusic@gmail.com</P>
           <P>

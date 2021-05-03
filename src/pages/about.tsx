@@ -53,9 +53,7 @@ const About = () => {
     <IndexLayout>
       <Page>
         <Landing image={graffiti.childImageSharp} />
-        <Title sticky fontSize={[1, 3, 4]}>
-          ABOUT
-        </Title>
+        <Title fontSize={[1, 3, 4]}>ABOUT</Title>
         <TextContainer mx={[4, 5, 7]} my={2}>
           <P>RANGES RC (RANGES RECORDS / RRC)</P>
           <P>

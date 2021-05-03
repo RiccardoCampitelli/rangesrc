@@ -27,9 +27,7 @@ const IndexPage = () => {
     <IndexLayout>
       <Page>
         <Landing image={cover.childImageSharp} />
-        <Title sticky fontSize={[1, 3, 4]}>
-          RANGES RC
-        </Title>
+        <Title fontSize={[1, 3, 4]}>RANGES RC</Title>
         <SongList />
       </Page>
     </IndexLayout>
