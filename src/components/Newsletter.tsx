@@ -69,12 +69,11 @@ function dateDiffInDays(a: Date, b: Date) {
   return Math.floor((utc2 - utc1) / MS_PER_DAY)
 }
 
-const INITIAL_DELAY = 10000
+const INITIAL_DELAY = 30000
 
 const SHOW_NEWSLETTER_AFTER_DAYS = 7
 
 const Newsletter = () => {
-  // const modalContentRef = useRef<HTMLDivElement>(null)
   const { newsLetterState, setNewsLetterState } = useNewsLetterContext()
   const [email, setEmail] = useState('')
   const [
