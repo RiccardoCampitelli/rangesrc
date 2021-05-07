@@ -1,65 +1,13 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useTimeout } from 'src/hooks/useTimeout'
 import { getColor, getSpace } from 'src/styles/theme'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 // @ts-ignore
 import rainLoop from 'src/images/rain-loop.gif'
 import { useNewsLetterContext } from 'src/context/NewsletterContext'
 import addToMailchimp from 'gatsby-plugin-mailchimp'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { Icon } from './Icon'
+
 import { Modal, ModalContent } from './Modal'
-
-// interface ModalProps {
-//   open: boolean
-// }
-
-// const Modal = styled.div<ModalProps>`
-//   display: ${props => (props.open ? 'flex' : 'none')};
-//   flex: 1 1 auto;
-
-//   align-items: center;
-//   justify-content: center;
-
-//   position: fixed;
-//   z-index: 101;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   overflow: auto;
-//   background-color: rgb(0, 0, 0);
-//   background-color: rgba(0, 0, 0, 0.4);
-// `
-
-// const fadeIn = keyframes`
-//   from {
-//     opacity: 0;
-//     transform: translateY(10px);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: translateY(0px);
-//   }
-// `
-
-// const ModalContent = styled.div`
-//   width: 500px;
-//   height: 500px;
-//   position: relative;
-
-//   display: flex;
-//   flex-direction: column;
-
-//   align-items: center;
-//   justify-content: space-evenly;
-
-//   border-radius: 10px;
-
-//   background-color: white;
-
-//   animation: ${fadeIn} 0.5s ease-in;
-// `
 
 const GifImage = styled.img`
   height: 200px;
@@ -97,29 +45,6 @@ const Button = styled.button`
   border-left: 1px solid ${getColor('neutralDarker')};
   margin-left: ${getSpace(1)};
   border-radius: 5px;
-`
-
-const CloseButton = styled.button`
-  position: absolute;
-
-  top: -5px;
-  right: -5px;
-
-  &:focus {
-    outline: none;
-  }
-
-  background-color: white;
-
-  border-radius: 50%;
-  border: 1px solid white;
-  padding: 1rem;
-  height: 20px;
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `
 
 interface MessageProps {
@@ -218,13 +143,6 @@ const Newsletter = () => {
         height="500px"
         width="500px"
       >
-        {/* <CloseButton
-        onClick={() =>
-          setNewsLetterState((curr: any) => ({ ...curr, value: false }))
-        }
-        >
-        <Icon icon={faTimes} />
-      </CloseButton> */}
         <Heading>IT'S RANGES SEASON! </Heading>
         <GifImage src={rainLoop} alt="rain-loop gif" />
         <Heading>SIGN UP TO GET THE FULL SCOOP</Heading>

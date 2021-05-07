@@ -18,7 +18,7 @@ const ModalBackground = styled.div<ModalProps>`
   justify-content: center;
 
   position: fixed;
-  z-index: 101;
+  z-index: 102;
   left: 0;
   top: 0;
   width: 100%;
@@ -47,6 +47,7 @@ const ModalContentContainer = styled.div<ModalContentProps>`
   /* width: 70%; */
   ${layout}
   position: relative;
+  z-index: 102;
 
   display: flex;
   flex-direction: column;

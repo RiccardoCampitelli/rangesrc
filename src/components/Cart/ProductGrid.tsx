@@ -4,6 +4,7 @@ import { AppTheme, getColor, getFontWeight } from 'src/styles/theme'
 import styled from 'styled-components'
 import {
   layout,
+  LayoutProps,
   space,
   SpaceProps,
   typography,
@@ -12,12 +13,14 @@ import {
 import { Link as GatsbyLink } from 'gatsby'
 import { ContentWrapper } from '../SongList'
 
-const LineItem = styled.div<SpaceProps>`
+const LineItem = styled.div<SpaceProps & LayoutProps<AppTheme>>`
   ${space}
+  ${layout}
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `
 
 const Figure = styled.figure<SpaceProps>`
@@ -40,10 +43,12 @@ const Text = styled.span<TypographyProps<AppTheme>>`
   ${typography}
 `
 
-const Link = styled(GatsbyLink)`
+const Link = styled(GatsbyLink)<LayoutProps>`
   &:hover {
     text-decoration: none;
   }
+
+  ${layout}
 `
 
 const ProductImage: React.FC<Omit<
@@ -89,25 +94,25 @@ const ProductGrid = ({ products }: ProductGridProps) => {
       <ContentWrapper
         flexWrap="wrap"
         flexDirection={['column', 'row']}
-        alignItems="center"
+        alignItems="baseline"
         justifyContent="center"
         marginBottom={[5, 6]}
       >
         {products.map(({ images, variants, handle, id, title }) => (
-          <LineItem marginX={[0, 2]} key={id}>
-            <Link to={`/product/${handle}`}>
-              <Figure margin={4}>
+          <LineItem width={['100%', 300, 400]} marginX={[0, 2]} key={id}>
+            <Link width={['100%', 300, 400]} to={`/product/${handle}`}>
+              <Figure marginY={4}>
                 <ProductImage
-                  size={[300, 400]}
+                  size={['100%', 300, 400]}
                   fluid={images[0].localFile.childImageSharp.fluid}
                   alt=""
                 />
               </Figure>
-              <ProductFooter>
-                <Text fontSize={1}>{title}</Text>
-                <Text>${variants[0].price}</Text>
-              </ProductFooter>
             </Link>
+            <ProductFooter>
+              <Text fontSize={1}>{title}</Text>
+              <Text>${variants[0].price}</Text>
+            </ProductFooter>
           </LineItem>
         ))}
       </ContentWrapper>
