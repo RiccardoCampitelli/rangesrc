@@ -16,7 +16,12 @@ import {
 } from 'styled-system'
 import { useCartContext, useLineItemUpdate } from 'src/context/CartContext'
 import { Icon } from 'src/components/Icon'
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowLeft,
+  faArrowRight,
+  faMinus,
+  faPlus
+} from '@fortawesome/free-solid-svg-icons'
 import { Modal, ModalContent } from 'src/components/Modal'
 import { useLightTheme } from 'src/context/ThemeContext'
 
@@ -46,6 +51,7 @@ const ProductImage: React.FC<Omit<
   ${space};
   ${layout};
   object-fit: cover;
+  cursor: pointer;
 `
 
 const Text = styled.p<TypographyProps<AppTheme>>`
@@ -117,9 +123,22 @@ const Warning = styled.p`
   height: 1rem;
 `
 
+const SliderButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+`
+
 const ProductPage = ({ data }: QueryData) => {
-  const { title, variants, descriptionHtml, shopifyId } = data.shopifyProduct
+  const {
+    title,
+    variants,
+    descriptionHtml,
+    shopifyId,
+    images
+  } = data.shopifyProduct
   const [variantIndex, setVariantIndex] = useState(0)
+  const [imageIndex, setImageIndex] = useState(0)
   const [isAvailable, setIsAvailable] = useState<boolean>()
   const [productModalOpen, setProductModalOpen] = useState(false)
   const currentVariant = variants[variantIndex]
@@ -138,7 +157,20 @@ const ProductPage = ({ data }: QueryData) => {
     return lineItems.find((lineItem: any) => lineItem.variant.id === id)
   }
 
-  const imageFluid = currentVariant.image.localFile.childImageSharp.fluid
+  // const imageFluid = currentVariant.image.localFile.childImageSharp.fluid
+  const imageFluid = images[imageIndex].localFile.childImageSharp.fluid
+
+  const updateCurrentImage = (delta: number) => {
+    setImageIndex(current => {
+      const newValue = current + delta
+
+      if (newValue < 0) return current
+
+      if (newValue > images.length - 1) return current
+
+      return newValue
+    })
+  }
 
   useEffect(() => {
     const fetchCurrent = async () => {
@@ -185,6 +217,8 @@ const ProductPage = ({ data }: QueryData) => {
 
   const moreThanOneVariant = variants.length > 1
 
+  const moreThanOneImage = images.length > 1
+
   return (
     <IndexLayout>
       <Modal open={productModalOpen} onClick={() => setProductModalOpen(false)}>
@@ -212,12 +246,34 @@ const ProductPage = ({ data }: QueryData) => {
               justifyContent="center"
               onClick={() => setProductModalOpen(true)}
             >
+              {moreThanOneImage && (
+                <SliderButton
+                  type="button"
+                  onClick={evt => {
+                    evt.stopPropagation()
+                    updateCurrentImage(-1)
+                  }}
+                >
+                  <Icon icon={faArrowLeft} />
+                </SliderButton>
+              )}
               <ProductImage
                 size={['100%', '80%', '100%']}
                 marginX={[0, 2]}
                 fluid={imageFluid}
                 width={['100%', '80%', '50%']}
               />
+              {moreThanOneImage && (
+                <SliderButton
+                  type="button"
+                  onClick={evt => {
+                    evt.stopPropagation()
+                    updateCurrentImage(1)
+                  }}
+                >
+                  <Icon icon={faArrowRight} />
+                </SliderButton>
+              )}
             </Row>
             <ProductInfo>
               <ProductTitle fontSize={[1, 2]}>{title}</ProductTitle>
@@ -295,6 +351,13 @@ interface QueryData {
           id: string
         }
       }[]
+      images: [
+        {
+          localFile: {
+            childImageSharp: GatsbyImageFluidProps
+          }
+        }
+      ]
     }
   }
 }
@@ -313,6 +376,15 @@ export const query = graphql`
         id
         name
         values
+      }
+      images {
+        localFile {
+          childImageSharp {
+            fluid(maxWidth: 910) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
       variants {
         id
