@@ -3,7 +3,8 @@ const SongList = {
     {
       imageName: 'FIGO.jpg',
       spotifyLink: 'https://open.spotify.com/album/2sZJBaUQOM0dvXljaoO5I4',
-      youtubeLink: ''
+      youtubeLink:
+        'https://www.youtube.com/watch?v=hz4U5phTXf8&list=OLAK5uy_mCLj86NN4Ayf_1NVAR0tR0wREPX0v3Hgw&ab_channel=RangesRC-Topic'
     },
     {
       imageName: 'revengeseason.jpg',

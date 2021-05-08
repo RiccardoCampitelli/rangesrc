@@ -65,7 +65,7 @@ const lightBase = {
     positive: '#50b87e',
     negative: '#ffbe44',
     neutralDarker: '#293132',
-    neutralDark: '#e7edf1',
+    neutralDark: '#ffffff',
     neutralMidDark: '#85898b',
     neutralMid: '#cacdcd',
     neutralMidLight: '#d9dbdb',

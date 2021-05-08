@@ -3,9 +3,10 @@ import React, {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useState
 } from 'react'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, useTheme } from 'styled-components'
 
 import { AppTheme, darkTheme, lightTheme } from 'src/styles/theme'
 
@@ -20,6 +21,21 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue>(DEFAULT_VALUE)
 
 const useThemeContext = () => useContext(ThemeContext)
+
+const useLightTheme = () => {
+  const { changeTheme } = useThemeContext()
+
+  useEffect(() => {
+    changeTheme('light')
+  }, [])
+}
+const useDarkTheme = () => {
+  const { changeTheme } = useThemeContext()
+
+  useEffect(() => {
+    changeTheme('dark')
+  }, [])
+}
 
 type ThemeValue = 'light' | 'dark'
 
@@ -49,4 +65,4 @@ const ThemeContextProvider: React.FC = ({ children }) => {
   )
 }
 
-export { useThemeContext, ThemeContextProvider }
+export { useThemeContext, ThemeContextProvider, useLightTheme, useDarkTheme }

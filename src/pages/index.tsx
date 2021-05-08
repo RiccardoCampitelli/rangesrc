@@ -7,6 +7,7 @@ import Page from 'src/components/Page'
 import { Title } from 'src/components/Title'
 import { SongList } from 'src/components/SongList'
 import { graphql, useStaticQuery } from 'gatsby'
+import { useDarkTheme } from 'src/context/ThemeContext'
 
 const query = graphql`
   query {
@@ -22,6 +23,7 @@ const query = graphql`
 
 const IndexPage = () => {
   const { cover } = useStaticQuery(query)
+  useDarkTheme()
 
   return (
     <IndexLayout>

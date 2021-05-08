@@ -7,7 +7,7 @@ import {
   FontAwesomeIconProps
 } from '@fortawesome/react-fontawesome'
 import { space, SpaceProps, color, ColorProps } from 'styled-system'
-import { AppTheme } from 'src/styles/theme'
+import { AppTheme, getColor } from 'src/styles/theme'
 
 interface IconProps
   extends FontAwesomeIconProps,
@@ -16,7 +16,8 @@ interface IconProps
 
 const Icon: React.FC<IconProps> = styled(FontAwesomeIcon)`
   cursor: pointer;
+  color: ${getColor('primary')};
   ${space};
-  ${color}
+  ${color};
 `
 export { Icon }

@@ -61,7 +61,9 @@ const SideNav = styled.div<SideNavProps>`
   top: 0;
   left: 0;
 
-  background-color: #111;
+  /* background-color: #111; */
+  background-color: ${getColor('neutralDark')};
+  color: ${getColor('primary')};
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -114,19 +116,13 @@ const Header: React.FC = () => {
           </div>
         )}
         <Link to="/checkout">
-          <Icon icon={faShoppingCart} size="2x" color="white" />
+          <Icon icon={faShoppingCart} size="2x" />
           {total > 0 && <Label>{total}</Label>}
         </Link>
       </StyledHeader>
 
       <SideNav isOpen={isOpen}>
-        <Icon
-          ml="auto"
-          icon={faTimes}
-          size="2x"
-          color="white"
-          onClick={closeMenu}
-        />
+        <Icon ml="auto" icon={faTimes} size="2x" onClick={closeMenu} />
         <Link onClick={closeMenu} my={2} to="/">
           Home
         </Link>

@@ -7,6 +7,7 @@ import { space, SpaceProps } from 'styled-system'
 import Landing from 'src/components/Landing'
 import { graphql, useStaticQuery } from 'gatsby'
 import { Title } from 'src/components/Title'
+import { useDarkTheme } from 'src/context/ThemeContext'
 
 const enterAnimation = keyframes`
   0% {
@@ -48,6 +49,7 @@ const query = graphql`
 
 const About = () => {
   const { graffiti } = useStaticQuery(query)
+  useDarkTheme()
 
   return (
     <IndexLayout>

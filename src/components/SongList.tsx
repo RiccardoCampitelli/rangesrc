@@ -69,6 +69,7 @@ const SongList = () => {
 
   return (
     <ContentWrapper
+      marginTop={4}
       flexWrap="wrap"
       flexDirection={['column', 'row']}
       alignItems="center"

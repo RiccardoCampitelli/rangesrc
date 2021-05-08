@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import { ProductGrid } from 'src/components/Cart/ProductGrid'
 
 import { GatsbyImageFluidProps } from 'gatsby-image'
+import { useLightTheme } from 'src/context/ThemeContext'
 import Page from '../components/Page'
 import IndexLayout from '../layouts'
 
@@ -69,6 +70,8 @@ interface QueryData {
 }
 
 const Shop = ({ data }: QueryData) => {
+  useLightTheme()
+
   return (
     <IndexLayout>
       <Page>

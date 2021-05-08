@@ -1,6 +1,6 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import React, { ReactNode } from 'react'
-import { AppTheme } from 'src/styles/theme'
+import { AppTheme, getColor } from 'src/styles/theme'
 
 import styled, { keyframes } from 'styled-components'
 import { layout, LayoutProps } from 'styled-system'
@@ -42,9 +42,6 @@ const fadeIn = keyframes`
 type ModalContentProps = {} & LayoutProps<AppTheme>
 
 const ModalContentContainer = styled.div<ModalContentProps>`
-  /* width: 500px;
-  height: 500px; */
-  /* width: 70%; */
   ${layout}
   position: relative;
   z-index: 102;
@@ -72,7 +69,9 @@ const CloseButton = styled.button`
     outline: none;
   }
 
+  /* background-color: white; */
   background-color: white;
+  /* color: ${getColor('primary')}; */
 
   border-radius: 50%;
   border: 1px solid white;
@@ -113,7 +112,7 @@ const ModalContent = ({
       onClick={(evt: any) => evt.stopPropagation()}
     >
       <CloseButton onClick={onClick}>
-        <Icon icon={faTimes} />
+        <Icon color="black" icon={faTimes} />
       </CloseButton>
       {children}
     </ModalContentContainer>

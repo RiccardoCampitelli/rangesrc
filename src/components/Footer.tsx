@@ -37,6 +37,7 @@ const Hr = styled.hr`
   margin-top: 5rem;
   width: 100%;
   color: ${props => props.theme.colors.primary};
+  border: 1px solid ${getColor('primary')};
 `
 
 const A = styled.a`
@@ -44,10 +45,6 @@ const A = styled.a`
 `
 
 const Footer = () => {
-  const { screenSize } = useScreenSize()
-
-  const shouldShowLinks = screenSize === 'small'
-
   return (
     <>
       <Hr />

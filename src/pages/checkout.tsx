@@ -21,11 +21,13 @@ import {
 import { Link } from 'gatsby'
 import { Icon } from 'src/components/Icon'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { useLightTheme } from 'src/context/ThemeContext'
 
 const Container = styled.div`
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+  min-height: 60vh;
 
   align-items: center;
   justify-content: center;
@@ -37,8 +39,8 @@ const Container = styled.div`
 `
 
 const Image = styled.img<SpaceProps<AppTheme> & LayoutProps<AppTheme>>`
-  ${space}
-  ${layout}
+  ${space};
+  ${layout};
   object-fit: contain;
 `
 
@@ -46,18 +48,18 @@ const Flex = styled.div<
   FlexboxProps & SpaceProps<AppTheme> & LayoutProps<AppTheme>
 >`
   display: flex;
-  ${flexbox}
-  ${space}
-  ${layout}
+  ${flexbox};
+  ${space};
+  ${layout};
 `
 
 const P = styled.p<TypographyProps & SpaceProps<AppTheme>>`
-  ${typography}
-  ${space}
+  ${typography};
+  ${space};
 `
 
 const Button = styled.button<SpaceProps<AppTheme>>`
-  color: black;
+  color: ${getColor('neutralDark')};
   font-weight: bold;
   background-color: ${getColor('primary')};
   border: 1px solid ${getColor('primary')};
@@ -65,19 +67,20 @@ const Button = styled.button<SpaceProps<AppTheme>>`
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
-  ${space}
+  ${space};
 `
 
 const Row = styled.div<FlexboxProps<AppTheme> & SpaceProps<AppTheme>>`
   display: flex;
-  ${flexbox}
-  ${space}
+  ${flexbox};
+  ${space};
 `
 
 const Checkout = () => {
   const { cart } = useCartContext()
   const goToCheckout = useGoToCheckout()
   const updateLineItems = useLineItemUpdate()
+  useLightTheme()
 
   const lineItems = cart.checkout.lineItems
 
@@ -92,7 +95,7 @@ const Checkout = () => {
     <IndexLayout>
       <Page>
         <Container>
-          {isCartEmpty && <div>Cart is empty!</div>}
+          {isCartEmpty && <P fontSize={1}>Cart is empty!</P>}
           {lineItems.map(lineItem => (
             <Flex
               flex="1 1 auto"

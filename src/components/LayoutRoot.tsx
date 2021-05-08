@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { getColor } from 'src/styles/theme'
 import styled from 'styled-components'
 import GlobalStyle from '../styles/normalize'
 
@@ -7,7 +8,8 @@ const StyledLayoutRoot = styled.div`
   flex-direction: column;
   min-height: 100vh;
 
-  background: #111111;
+  /* background: #111111; */
+  background: ${getColor('neutralDark')};
 `
 
 interface LayoutRootProps {

@@ -18,6 +18,7 @@ import { useCartContext, useLineItemUpdate } from 'src/context/CartContext'
 import { Icon } from 'src/components/Icon'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { Modal, ModalContent } from 'src/components/Modal'
+import { useLightTheme } from 'src/context/ThemeContext'
 
 const ProductTitle = styled.h1<TypographyProps<AppTheme>>`
   color: ${getColor('primary')};
@@ -128,6 +129,8 @@ const ProductPage = ({ data }: QueryData) => {
       client
     }
   } = useCartContext()
+
+  useLightTheme()
 
   const updateLineItems = useLineItemUpdate()
 
@@ -244,7 +247,7 @@ const ProductPage = ({ data }: QueryData) => {
                     isCurrentVariantAvailable &&
                     updateLineItems(currentVariant.shopifyId, -1)
                   }
-                  color={!isCurrentVariantAvailable ? 'grey' : 'white'}
+                  color={!isCurrentVariantAvailable ? 'grey' : 'black'}
                 />
                 <Text>
                   {findLineItem(currentVariant.shopifyId)?.quantity ?? 0}
@@ -256,7 +259,7 @@ const ProductPage = ({ data }: QueryData) => {
                     isCurrentVariantAvailable &&
                     updateLineItems(currentVariant.shopifyId, 1)
                   }
-                  color={!isCurrentVariantAvailable ? 'grey' : 'white'}
+                  color={!isCurrentVariantAvailable ? 'grey' : 'black'}
                 />
               </Row>
               <P dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
