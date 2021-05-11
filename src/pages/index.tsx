@@ -23,6 +23,7 @@ const query = graphql`
 
 const IndexPage = () => {
   const { cover } = useStaticQuery(query)
+
   useDarkTheme()
 
   return (
